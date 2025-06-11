@@ -15,7 +15,6 @@ This repository hosts the source code for my personal portfolio website, a dynam
 * **Skills Overview:** A clear presentation of my technical proficiencies and tools.
 * **About Me Section:** A concise introduction to my professional background, passions, and goals.
 * **Contact Form:** An easy way for visitors to get in touch with me directly.
-* **Integrated Blog:** A dedicated section where I share my thoughts, insights, and technical articles.
 * **Dark Mode (Default) & Light Mode Toggle:** The website defaults to a sleek dark theme, with an option for users to switch to a comfortable light mode.
 
 ---
