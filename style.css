@@ -5,8 +5,7 @@
     background-position: center
 }
 
-#labelforsetting,
-#labelforsound {
+#labelforsetting {
     height: 40px;
     background-size: 60%
 }
@@ -38,7 +37,6 @@ body {
     font-family: Whitney, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif
 }
 
-.eye,
 .image-div,
 .logo,
 .navbar,
@@ -49,7 +47,6 @@ footer {
 }
 
 .cta,
-.github-redirect,
 .navbar-tabs-ul a {
     text-decoration: none
 }
@@ -109,7 +106,6 @@ html {
 #hello-friend,
 .footer-bottom article,
 .getintouch-heading article,
-.language-speak article,
 .navbar-tabs-ul li,
 .two-words article {
     font-family: fira code
@@ -212,13 +208,6 @@ html {
     cursor: pointer
 }
 
-.soundtogglebuttoncontainer,
-.visualmodetogglebuttoncontainer {
-    align-items: center;
-    width: fit-content;
-    transition-duration: .3s
-}
-
 .settingactivate {
     width: 200px
 }
@@ -236,7 +225,6 @@ html {
 }
 
 #switchforsetting,
-#switchforsound,
 #switchforvisualmode,
 .hamburger,
 .mobiletogglemenu {
@@ -265,14 +253,6 @@ html {
     background-size: 60%
 }
 
-.soundtogglebuttoncontainer {
-    height: fit-content;
-    display: flex;
-    justify-content: center;
-    transform: translate(-130px) scale(0)
-}
-
-#labelforsound,
 #preloader {
     display: flex;
     align-items: center;
@@ -280,33 +260,9 @@ html {
     background-position: center
 }
 
-.soundmodeshow {
-    transition-delay: .1s;
-    transition-duration: .5s;
-    display: inline-block;
-    transform: translate(0) scale(1)
-}
-
 .logo,
 .logo:hover {
     transition-duration: 1s
-}
-
-#labelforsound {
-    position: relative;
-    justify-content: center;
-    width: 40px;
-    background-image: url(src/svg/Mute_Icon.svg);
-    cursor: pointer;
-    transition-duration: .5s
-}
-
-#switchforsound:checked+#labelforsound {
-    transition-duration: .5s;
-    background-image: url(src/svg/Speaker_Icon.svg);
-    background-size: 50%;
-    background-repeat: no-repeat;
-    background-position: center
 }
 
 header {
@@ -345,12 +301,6 @@ noscript {
     font-size: 4rem;
     color: #fff;
     z-index: 999999
-}
-
-.fakenavbar {
-    height: 0;
-    width: 0%;
-    background-color: transparent
 }
 
 .navbar {
@@ -424,37 +374,20 @@ noscript {
     user-select: none
 }
 
-.face,
 .logo-top {
     width: 100%;
     align-items: center;
     display: flex
 }
 
-.hey {
-    color: #fff;
-    position: absolute;
-    font-size: 2.5rem;
-    font-weight: 300;
-    background-color: #20222e;
-    padding: 5px 10px;
-    border-radius: 20px;
-    left: 120px;
-    bottom: 80px;
-    opacity: 0
-}
-
 #hello-friend,
 #work,
 .about-info p,
-.activeThistab,
-.language-speak article {
+.activeThistab {
     color: var(--color-white)
 }
 
-.blob,
-.eye,
-.pupil {
+.blob {
     border-radius: 50%
 }
 
@@ -485,8 +418,7 @@ noscript {
 
 }
 
-.activeThistab:before,
-.face {
+.activeThistab:before {
     content: "";
     position: absolute
 }
@@ -495,36 +427,6 @@ noscript {
     max-width: 100%;
     height: 100%;
     z-index: 2
-}
-
-.face {
-    height: auto;
-    position: relative;
-    padding-left: 1px;
-    bottom: initial
-}
-
-.eye {
-    width: 8px;
-    height: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #fff
-}
-
-.left-eye {
-    box-shadow: -1px -2px 2px rgba(0, 0, 0, .589) inset
-}
-
-.right-eye {
-    box-shadow: 1px 3px 2px rgba(0, 0, 0, .589) inset
-}
-
-.pupil {
-    width: 3.5px;
-    height: 3.5px;
-    background: #241010
 }
 
 .logo:hover {
@@ -888,12 +790,8 @@ noscript {
     position: relative
 }
 
-.projects-heading-article,
-.projectsHeadingP,
 .section-heading-article,
-.sectionHeadingP,
-.skills-heading-article,
-.skillsHeadingP {
+.sectionHeadingP {
     background-image: -webkit-gradient(linear, left top, right top, var(--static-heading-gradient-blue), var(--static-heading-gradient-pink));
     background-image: -webkit-linear-gradient(left, var(--static-heading-gradient-blue), var(--static-heading-gradient-pink))
 }
@@ -973,9 +871,7 @@ noscript {
     justify-content: center
 }
 
-.projects-heading,
-.section-heading,
-.skills-heading {
+.section-heading {
     width: 100%;
     display: flex;
     align-items: center;
@@ -988,9 +884,7 @@ noscript {
     width: 300px
 }
 
-.projects-heading-article,
-.section-heading-article,
-.skills-heading-article {
+.section-heading-article {
     font-size: 3rem;
     font-family: fira code;
     font-weight: 500;
@@ -1000,9 +894,7 @@ noscript {
     -webkit-text-fill-color: transparent
 }
 
-.projectsHeadingP,
-.sectionHeadingP,
-.skillsHeadingP {
+.sectionHeadingP {
     width: 300px;
     height: 1px;
     background-image: linear-gradient(90deg, var(--static-heading-gradient-blue), var(--static-heading-gradient-pink))
@@ -1056,21 +948,10 @@ noscript {
     justify-content: center
 }
 
-.language-speak,
 .tech-stack-wrapper {
     width: 100%;
     display: flex;
     align-items: center
-}
-
-.language-speak {
-    height: 50px;
-    justify-content: center
-}
-
-.language-speak article {
-    font-size: 2rem;
-    font-weight: 600
 }
 
 .frontend-dev-section {
@@ -1208,10 +1089,6 @@ footer {
     border-radius: 50%
 }
 
-.faviconforProjectAquaregia {
-    width: 20px
-}
-
 .image-div {
     width: 50%;
     height: 100%;
@@ -1242,21 +1119,6 @@ footer {
     align-items: center;
     justify-content: flex-start;
     gap: 20px
-}
-
-.github-redirect {
-    width: 50px
-}
-
-.github-redirect img {
-    width: 45px;
-    height: auto;
-    transition: .3s;
-    filter: brightness(2)
-}
-
-.github-redirect:hover img {
-    filter: brightness(4)
 }
 
 .cta {
@@ -1498,60 +1360,6 @@ footer {
     z-index: 2
 }
 
-.footer-avatar-face {
-    position: absolute;
-    width: 100%;
-    height: 97%;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 18px;
-    padding-left: 5px
-}
-
-.footer-avatar-eye {
-    width: 50px;
-    height: 50px;
-    background-color: #dfd2d2;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center
-}
-
-.footer-pupil {
-    width: 20px;
-    height: 20px;
-    background-color: #000;
-    border-radius: 50%;
-    border: 5px solid #413333;
-    filter: blur(.6px)
-}
-
-.footer-right-eye {
-    box-shadow: 15px 15px 5px rgba(0, 0, 0, .233) inset, 10px 10px 5px rgba(41, 33, 33, .644) inset;
-    position: relative
-}
-
-.footer-left-eye {
-    box-shadow: -10px -15px 5px rgba(0, 0, 0, .349) inset;
-    position: relative
-}
-
-.footer-avatar-eye::before {
-    position: absolute;
-    content: "";
-    width: 2px;
-    height: 5px;
-    border-radius: 50%;
-    background-color: rgba(214, 214, 214, .726);
-    z-index: 2;
-    filter: blur(.2px);
-    left: 15px;
-    transform: rotate(45deg)
-}
-
 .footer-bottom {
     background-color: #0b0b0b;
     width: 100%;
@@ -1560,10 +1368,6 @@ footer {
     justify-content: center;
     height: 80px;
     z-index: 3
-}
-
-.tonechange {
-    color: #000
 }
 
 @media screen and (max-width:1920px) {
@@ -1832,8 +1636,7 @@ footer {
         font-size: 5.5rem
     }
 
-    #info-para,
-    .language-name {
+    #info-para {
         width: 100%
     }
 
@@ -1892,10 +1695,6 @@ footer {
     #hello-friend,
     .two-words article {
         font-size: 2.5rem
-    }
-
-    .hey {
-        left: 70px
     }
 
     .logo:hover {
@@ -1990,10 +1789,6 @@ footer {
 @media screen and (max-width:300px) {
     html {
         font-size: 42%
-    }
-
-    .language-name article {
-        text-align: center
     }
 
     .two-words {
