@@ -56,8 +56,7 @@ From here, you can open the project in your favorite code editor to review the f
 
 ## 🌐 Live Demo
 
-You can view the live version of my portfolio here:
-[Add link once it is live]
+You can view the live version of my portfolio here: https://moabdrabou.dev/
 
 ---
 
