@@ -18,9 +18,7 @@
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Passions+Conflict&family=Orbitron&family=Fira+Code&family=Six+Caps" />
-
-
-
+</head>
 <body class="body">
   <div id="preloader"></div>
   <noscript>Allow Javascript</noscript>
@@ -29,7 +27,7 @@
     <div class="cursor-outer" id="cursor-outer"></div>
 
     <div class="navbar" id="navbar">
-        <div class="logo" tabindex="0" aria-label="vinod jangid logo">
+        <div class="logo" aria-label="vinod jangid logo">
         <div class="logo-top">
           <img src="assets/favicon.png" alt="MA Initials" />
         </div>
@@ -37,7 +35,7 @@
       <div class="navbar-tabs" id="navbar-tabs">
         <ul class="navbar-tabs-ul">
           <li class="home activeThistab" data-aos="fade-down" data-aos-delay="100">
-            <a href="#home" tabindex="0" aria-label="Home menu button">
+            <a href="#home">
               Home
             </a>
           </li>
@@ -66,7 +64,7 @@
   <main>
     <div class="hamburger" id="hamburger" data-aos="fade">
       <div class="hamburgerbase">
-        <button id="hamburger-button" onclick="hamburgerMenu()" tabindex="0" aria-label="Menu Button">
+        <button id="hamburger-button" aria-label="Menu Button">
           <span class="burger-bar" id="burger-bar1"></span>
           <span class="burger-bar" id="burger-bar2"></span>
           <span class="burger-bar" id="burger-bar3"></span>
@@ -75,24 +73,24 @@
     </div>
     <div class="mobiletogglemenu" id="mobiletogglemenu">
       <ul class="mobile-navbar-tabs-ul" id="mobile-ul">
-        <li id="home-mobile-tab" class="mobile-navbar-tabs-li home activeThismobiletab" onclick="hidemenubyli()">
-          <a href="#home" tabindex="0" aria-label="Home menu button">
+        <li id="home-mobile-tab" class="mobile-navbar-tabs-li home activeThismobiletab">
+          <a href="#home" aria-label="Home menu button">
             Home
           </a>
         </li>
 
-        <li id="aboutme-mobile-tab" class="mobile-navbar-tabs-li about" onclick="hidemenubyli()">
-          <a href="#about" tabindex="0" aria-label="about menu button">
+        <li id="aboutme-mobile-tab" class="mobile-navbar-tabs-li about">
+          <a href="#about" aria-label="about menu button">
             def Aboutme():
           </a>
         </li>
-        <li id="skills-mobile-tab" class="mobile-navbar-tabs-li skills" onclick="hidemenubyli()">
-          <a href="#skills" tabindex="0" aria-label="skills menu button">
+        <li id="skills-mobile-tab" class="mobile-navbar-tabs-li skills">
+          <a href="#skills" aria-label="skills menu button">
             class Skills:
           </a>
         </li>
-        <li id="projects-mobile-tab" class="mobile-navbar-tabs-li projects" onclick="hidemenubyli()">
-          <a href="#projects" tabindex="0" aria-label="projects menu button">
+        <li id="projects-mobile-tab" class="mobile-navbar-tabs-li projects">
+          <a href="#projects" aria-label="projects menu button">
             for project in Project:
           </a>
         </li>
@@ -102,111 +100,56 @@
       <div class="blob"></div>
 
       <div class="text-content">
-        <article id="hello-friend" data-aos="fade-up" data-aos-delay="0">
-          <p class="jello">h</p>
-          <p class="jello">e</p>
-          <p class="jello">l</p>
-          <p class="jello">l</p>
-          <p class="jello">o</p>
-          <p class="jello">(</p>
-          <p class="jello">)</p>
-          <p class="jello">:</p>
+        <h1 id="hello-friend" data-aos="fade-up" data-aos-delay="0">
+          <span class="jello">h</span><span class="jello">e</span><span class="jello">l</span><span class="jello">l</span><span class="jello">o</span><span class="jello">(</span><span class="jello">)</span><span class="jello">:</span>
           &nbsp;
-          <p class="jello">I</p>
-          <p class="jello">'</p>
-          <p class="jello">m</p>
-        </article>
-        <article id="name" data-aos="fade-up" data-aos-delay="200">
-          <p class="jello">M</p>
-          <p class="jello">o</p>
-          <p class="jello">h</p>
-          <p class="jello">a</p>
-          <p class="jello">m</p>
-          <p class="jello">m</p>
-          <p class="jello">e</p>
-          <p class="jello">d</p>
+          <span class="jello">I</span><span class="jello">'</span><span class="jello">m</span>
+        </h1>
+        <h2 id="name" data-aos="fade-up" data-aos-delay="200">
+          <span class="jello">M</span><span class="jello">o</span><span class="jello">h</span><span class="jello">a</span><span class="jello">m</span><span class="jello">m</span><span class="jello">e</span><span class="jello">d</span>
           &nbsp;
-          <p class="jello">A</p>
-          <p class="jello">b</p>
-          <p class="jello">d</p>
-          <p class="jello">r</p>
-          <p class="jello">a</p>
-          <p class="jello">b</p>
-          <p class="jello">o</p>
-          <p class="jello">u</p>
+          <span class="jello">A</span><span class="jello">b</span><span class="jello">d</span><span class="jello">r</span><span class="jello">a</span><span class="jello">b</span><span class="jello">o</span><span class="jello">u</span>
+        </h2>
 
-        </article>
-
-        <article id="work" data-aos="fade-up" data-aos-delay="400">
+        <h3 id="work" data-aos="fade-up" data-aos-delay="400">
           <div>
-            <p class="jello">F</p>
-            <p class="jello">r</p>
-            <p class="jello">o</p>
-            <p class="jello">m</p>
+            <span class="jello">F</span><span class="jello">r</span><span class="jello">o</span><span class="jello">m</span>
           </div>
           <div>
-            <p class="jello">I</p>
-            <p class="jello">T</p>
+            <span class="jello">I</span><span class="jello">T</span>
           </div>
           <div>
-            <p class="jello">F</p>
-            <p class="jello">o</p>
-            <p class="jello">u</p>
-            <p class="jello">n</p>
-            <p class="jello">d</p>
-            <p class="jello">a</p>
-            <p class="jello">t</p>
-            <p class="jello">i</p>
-            <p class="jello">o</p>
-            <p class="jello">n</p>
-            <p class="jello">s</p>
+            <span class="jello">F</span><span class="jello">o</span><span class="jello">u</span><span class="jello">n</span><span class="jello">d</span><span class="jello">a</span><span class="jello">t</span><span class="jello">i</span><span class="jello">o</span><span class="jello">n</span><span class="jello">s</span>
           </div>
           <div>
-            <p class="jello">t</p>
-            <p class="jello">o</p>
+            <span class="jello">t</span><span class="jello">o</span>
           </div>
           <div>
-            <p class="jello">A</p>
-            <p class="jello">u</p>
-            <p class="jello">t</p>
-            <p class="jello">o</p>
-            <p class="jello">m</p>
-            <p class="jello">a</p>
-            <p class="jello">t</p>
-            <p class="jello">e</p>
-            <p class="jello">d</p>
+            <span class="jello">A</span><span class="jello">u</span><span class="jello">t</span><span class="jello">o</span><span class="jello">m</span><span class="jello">a</span><span class="jello">t</span><span class="jello">e</span><span class="jello">d</span>
           </div>
           <div>
-            <p class="jello">F</p>
-            <p class="jello">u</p>
-            <p class="jello">t</p>
-            <p class="jello">u</p>
-            <p class="jello">r</p>
-            <p class="jello">e</p>
-            <p class="jello">s</p>
+            <span class="jello">F</span><span class="jello">u</span><span class="jello">t</span><span class="jello">u</span><span class="jello">r</span><span class="jello">e</span><span class="jello">s</span>
           </div>
-        </article>
+        </h3>
         <p id="info-para" data-aos="fade-up" data-aos-delay="600">
           With a passion for creative problem-solving, I combine Front-End Development with DevOps Engineering to build impactful web solutions. Drawing from 15+ years in IT, I specialize in engineering efficient applications using HTML, CSS, JavaScript, and Python, while continuously optimizing systems and automating processes.<br />
           <br />
           My drive is to integrate automation and AI, ensuring scalable and user-centric applications that solve real-world problems and create lasting impact.
         </p>
         <div class="contact-btn-div" data-aos="fade-up" data-aos-delay="800">
-          <a href="mailto:moabdrabou@hotmail.com" tabindex="-1">
+          <a href="mailto:moabdrabou@hotmail.com">
             <button class="letsTalkBtn">
               <p class="letsTalkBtn-text">Let's Talk!</p>
               <span class="letsTalkBtn-BG"></span>
             </button></a>
           <div class="setting-container" id="setting-container">
-            <input type="checkbox" id="switchforsetting" onclick="settingtoggle()" />
+            <input type="checkbox" id="switchforsetting" />
 
-            <label for="switchforsetting" class="needtobeinvert" id="labelforsetting" tabindex="0"
-              aria-label="settings for sound and appearance"></label>
+            <label for="switchforsetting" class="needtobeinvert" id="labelforsetting"></label>
 
             <div class="visualmodetogglebuttoncontainer" id="visualmodetogglebuttoncontainer">
-              <input type="checkbox" id="switchforvisualmode" onclick="visualmode()" />
-              <label for="switchforvisualmode" id="labelforvisualmode" tabindex="0"
-                aria-label="switch appearance"></label>
+              <input type="checkbox" id="switchforvisualmode" />
+              <label for="switchforvisualmode" id="labelforvisualmode"></label>
             </div>
           </div>
           </div>
@@ -216,7 +159,7 @@
     <section class="about-section-container" id="about" data-aos="fade-up">
       <div class="about-section">
         <div class="section-heading">
-          <h2 class="section-heading-article" tabindex="0" aria-label="About me heading">
+          <h2 class="section-heading-article">
             def AboutMe():
           </h2>
           <p class="sectionHeadingP"></p>
@@ -224,18 +167,18 @@
 
         <div class="info-dp-section">
           <div class="about-info">
-            <p tabindex="0">
+            <p>
               An IT Veteran with extensive background spanning over 15 years in IT operations, system administration, and a robust foundation in front-end development and Python. I consistently engineer efficient web solutions and lead successful IT projects, leveraging deep expertise to optimize systems and drive impactful results.
             </p>
             <br />&nbsp;
-            <p tabindex="0">
+            <p>
               I am driven to integrate AI to craft smarter, user-centric applications, building on my experience with data analytics and problem-solving. My creative approach is centered on developing scalable solutions that deliver significant impact.
             </p>
             <br />&nbsp;
-            <p tabindex="0">
+            <p>
               I am seeking opportunities where I can leverage my comprehensive IT expertise in projects that inspire innovation and allow me to advance my skills in AI-driven solutions and cutting-edge front-end development.
             </p>
-             <button class="resume-btn" id="resume-btn" onclick="openURL()">
+             <button class="resume-btn" id="resume-btn">
         <div class="sign">
           <svg viewBox="0 0 640 512">
             <path
@@ -248,7 +191,7 @@
           </div>
 
           <div class="dp" data-aos="fade-up">
-            <img src="assets/MoAbdrabou.png" alt="Mohammed Abdrabou" tabindex="0" aria-label="image of mohammed" />
+            <img src="assets/MoAbdrabou.png" alt="Mohammed Abdrabou" />
           </div>
         </div>
       </div>
@@ -256,15 +199,14 @@
     <section class="skills-section-container" id="skills">
       <div class="skills-section">
         <div class="section-heading" data-aos="fade-up">
-          <h2 class="section-heading-article" tabindex="0" aria-label="skills heading">
+          <h2 class="section-heading-article">
             class Skills:
           </h2>
           <p class="sectionHeadingP"></p>
         </div>
 
         <div class="frontend-dev-section">
-          <h3 class="frontend-dev-heading" data-aos="fade-up" tabindex="0"
-            aria-label="As a frontend a developer these are the skills i have">
+          <h3 class="frontend-dev-heading" data-aos="fade-up">
             Tech Stack
           </h3>
           <ul class="tech-stack-wrapper">
@@ -380,7 +322,7 @@
     <section class="projects-section-container" id="projects">
       <div class="projects-section-div">
         <div class="section-heading" data-aos="fade-up">
-          <h2 class="section-heading-article" tabindex="0" aria-label="My projects starts from here">
+          <h2 class="section-heading-article">
             for project in Projects:
           </h2>
           <p class="sectionHeadingP"></p>
@@ -417,7 +359,7 @@
     </section>
   </main>
   <footer id="footer">
-    <button class="fas" id="backtotopbutton" onclick="scrolltoTopfunction()">
+    <button class="fas" id="backtotopbutton">
       <article aria-label="Back to top">&#8592;BACK TO TOP</article>
     </button>
     <div class="footer-background">
@@ -426,7 +368,7 @@
     <div class="footer-foreground">
       <div class="footercontainer">
         <div class="two-words">
-          <article tabindex="0" aria-label="Learning, Living, and Leveling Up, my quote">
+          <article aria-label="Learning, Living, and Leveling Up, my quote">
             "Code | Build | Innovate. Making Tech Work for You."
           </article>
         </div>
@@ -435,7 +377,7 @@
             <article>GetinTouch():</article>
           </div>
           <div class="logos">
-            <a href="https://x.com/MoeAbdrabou" target="_blank" tabindex="0"
+            <a href="https://x.com/MoeAbdrabou" target="_blank"
               aria-label="My twitter"><svg viewBox="0 0 448 512" class="SocialHandle">
                 <path
                 d="M512 97.2c-18.8 8.4-39.1 14-60.2 16.5 21.6-13 38.2-33.6 46-58.2-20.4 12-42.8 20.8-66.7 25.5-19.2-20.4-46.6-33-76.9-33-58.1 0-105.1 47-105.1 105 0 8.2.9 16.2 2.7 23.9-87.4-4.4-164.9-46.2-216.7-109.9-9 15.6-14.1 33.6-14.1 52.8 0 36.3 18.5 68.4 46.7 87.1-17.2-.6-33.4-5.3-47.5-13.1-.1.4-.1.9-.1 1.4 0 50.6 36 92.6 83.7 102-8.8 2.4-18.2 3.7-27.8 3.7-6.8 0-13.4-.7-19.9-2 13.5 41.8 52.6 72.3 98.9 73-36 28.2-81.4 45-130.6 45-8.5 0-16.8-.5-25.1-1.5 46.6 29.8 101.8 47.2 161.1 47.2 193.2 0 298.9-160.1 298.9-298.9 0-4.6-.1-9.2-.3-13.7 20.5-14.8 38.2-33.3 52.2-54.4z" />
@@ -479,49 +421,6 @@
     AOS.init();
   </script>
 
-  <script>
-    function openURL() {
-      var url = "assets/Mohammed-Abdrabou.pdf";
-
-      window.open(url, "_blank");
-    }
-  </script>
-
-  <script>
-    const cursorInner = document.getElementById("cursor-inner");
-    const cursorOuter = document.getElementById("cursor-outer");
-    const links = document.querySelectorAll("a,label,button");
-
-    document.addEventListener("mousemove", function (e) {
-      const posX = e.clientX;
-      const posY = e.clientY;
-
-      cursorInner.style.left = `${posX}px`;
-      cursorInner.style.top = `${posY}px`;
-
-      // cursorOuter.style.left = `${posX}px`;
-      // cursorOuter.style.top = `${posY}px`;
-
-      cursorOuter.animate(
-        {
-          left: `${posX}px`,
-          top: `${posY}px`,
-        },
-        { duration: 500, fill: "forwards" }
-      );
-
-      links.forEach((link) => {
-        link.addEventListener("mouseenter", () => {
-          cursorInner.classList.add("hover");
-          cursorOuter.classList.add("hover");
-        });
-        link.addEventListener("mouseleave", () => {
-          cursorInner.classList.remove("hover");
-          cursorOuter.classList.remove("hover");
-        });
-      });
-    });
-  </script>
   <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="moabdrabou" data-description="Support me on Buy me a coffee!" data-message="" data-color="#BD5FFF" data-position="left" data-x_margin="18" data-y_margin="18"></script>
 </body>
 
