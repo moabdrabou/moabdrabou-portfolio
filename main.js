@@ -100,30 +100,38 @@
   const navLi = document.querySelectorAll(".navbar .navbar-tabs .navbar-tabs-ul li");
   const backToTopButton = document.getElementById("backtotopbutton");
 
+  const observerOptions = {
+    root: null,
+    rootMargin: "0px",
+    threshold: 0.3,
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const current = entry.target.getAttribute("id");
+        mobileNavLi.forEach((li) => {
+          li.classList.remove("activeThismobiletab");
+          if (li.classList.contains(current)) {
+            li.classList.add("activeThismobiletab");
+          }
+        });
+        navLi.forEach((li) => {
+          li.classList.remove("activeThistab");
+          if (li.classList.contains(current)) {
+            li.classList.add("activeThistab");
+          }
+        });
+      }
+    });
+  }, observerOptions);
+
+  sections.forEach((section) => {
+    observer.observe(section);
+  });
+
+
   window.addEventListener("scroll", () => {
-    // Scrollspy
-    let current = "";
-    sections.forEach((section) => {
-      const sectionTop = section.offsetTop;
-      if (pageYOffset >= sectionTop - 200) {
-        current = section.getAttribute("id");
-      }
-    });
-
-    mobileNavLi.forEach((li) => {
-      li.classList.remove("activeThismobiletab");
-      if (li.classList.contains(current)) {
-        li.classList.add("activeThismobiletab");
-      }
-    });
-
-    navLi.forEach((li) => {
-      li.classList.remove("activeThistab");
-      if (li.classList.contains(current)) {
-        li.classList.add("activeThistab");
-      }
-    });
-
     // Back to top button
     if (backToTopButton) {
       if (
@@ -174,16 +182,16 @@
         },
         { duration: 500, fill: "forwards" }
       );
+    });
 
-      links.forEach((link) => {
-        link.addEventListener("mouseenter", () => {
-          cursorInner.classList.add("hover");
-          cursorOuter.classList.add("hover");
-        });
-        link.addEventListener("mouseleave", () => {
-          cursorInner.classList.remove("hover");
-          cursorOuter.classList.remove("hover");
-        });
+    links.forEach((link) => {
+      link.addEventListener("mouseenter", () => {
+        cursorInner.classList.add("hover");
+        cursorOuter.classList.add("hover");
+      });
+      link.addEventListener("mouseleave", () => {
+        cursorInner.classList.remove("hover");
+        cursorOuter.classList.remove("hover");
       });
     });
   }
