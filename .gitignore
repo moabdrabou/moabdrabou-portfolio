@@ -39,3 +39,8 @@ lib/
 # ----------------------------------------
 .env                # Local environment variables and credentials
 *.key               # Private cryptographic keys
+
+# ----------------------------------------
+# 5. Directories
+# ----------------------------------------
+OldDesign/
