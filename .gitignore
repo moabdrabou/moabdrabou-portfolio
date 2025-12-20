@@ -44,3 +44,4 @@ lib/
 # 5. Directories
 # ----------------------------------------
 OldDesign/
+.DS_Store
