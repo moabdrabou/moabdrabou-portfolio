@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -125,7 +125,7 @@
 
     <script>
       // Countdown Timer
-      const targetDate = new Date("2026-01-31T23:59:59").getTime();
+      const targetDate = new Date("2026-03-01T23:59:59").getTime();
 
       const countdownTimer = setInterval(() => {
         const now = new Date().getTime();
@@ -139,7 +139,7 @@
 
         const days = Math.floor(distance / (1000 * 60 * 60 * 24));
         const hours = Math.floor(
-          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
         );
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
