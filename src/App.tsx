@@ -296,7 +296,7 @@ const RedesignApp: React.FC = () => {
               <span className="text-[10px] tracking-[0.5em] text-[#ffae00] mb-4 block font-bold">
                 Bio-Data
               </span>
-              <h2 className="font-display text-5xl mb-8 tracking-widest">
+              <h2 className="font-display text-3xl md:text-5xl mb-8 tracking-widest">
                 &gt;&gt;&gt; MISSION BRIEFING
               </h2>
               <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -345,17 +345,17 @@ const RedesignApp: React.FC = () => {
               STANDING BY FOR NEW OBJECTIVES AND STRATEGIC ALLIANCES.
             </p>
 
-            <div className="flex flex-wrap justify-center gap-6 md:gap-10 mb-16">
+            <div className="flex justify-center gap-4 md:gap-10 mb-16">
               {contactLinks.map((link) => (
                 <div key={link.label} className="relative group flex flex-col items-center">
                   <a
                     href={link.href}
                     target={link.href.startsWith("mailto") ? undefined : "_blank"}
                     rel="noopener noreferrer"
-                    className="w-16 h-16 md:w-20 md:h-20 border border-[#00ffaa]/30 flex items-center justify-center hover:bg-[#00ffaa] hover:text-black hover:scale-110 transition-all duration-300"
+                    className="w-14 h-14 md:w-20 md:h-20 border border-[#00ffaa]/30 flex items-center justify-center hover:bg-[#00ffaa] hover:text-black hover:scale-110 transition-all duration-300"
                     title={link.label}
                   >
-                    <link.icon className="w-6 h-6 md:w-8 md:h-8" />
+                    <link.icon className="w-5 h-5 md:w-8 md:h-8" />
                   </a>
                   <span className="absolute -bottom-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-mono text-[10px] text-[#ffae00] tracking-widest whitespace-nowrap">
                     {link.meta}
@@ -378,7 +378,7 @@ const RedesignApp: React.FC = () => {
             <button
               onClick={handleSendSignal}
               disabled={signalStatus !== "IDLE"}
-              className={`w-full md:w-auto px-6 md:px-12 py-4 font-display text-lg md:text-2xl tracking-[0.2em] md:tracking-[0.3em] transition-all uppercase relative overflow-hidden group
+              className={`w-full md:w-auto px-4 md:px-12 py-4 font-display text-sm md:text-2xl tracking-[0.1em] md:tracking-[0.3em] transition-all uppercase relative overflow-hidden group
                 ${signalStatus === "IDLE" ? "bg-[#00ffaa] text-black hover:bg-white hover:scale-105" : ""}
                 ${signalStatus === "TRANSMITTING" ? "bg-[#ffae00] text-black cursor-wait" : ""}
                 ${signalStatus === "SENT" ? "bg-white text-black cursor-default border-2 border-[#00ffaa]" : ""}
