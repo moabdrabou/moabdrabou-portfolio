@@ -6,7 +6,6 @@ export default defineConfig({
   plugins: [react()],
   build: {
     outDir: "./Live",
-    emptyOutDir: true,
   },
   resolve: {
     alias: {
