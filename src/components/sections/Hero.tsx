@@ -21,10 +21,10 @@ const Hero: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <span className="text-sm tracking-[0.5em] text-[#ffae00] font-bold uppercase mb-4 block">
+            <span className="text-xs sm:text-sm tracking-[0.3em] sm:tracking-[0.5em] text-[#ffae00] font-bold uppercase mb-4 block">
               IDENTIFIED OPERATOR: ALPHA-01
             </span>
-            <h1 className="text-6xl md:text-8xl tracking-widest text-[#00ffaa] mb-6 filter drop-shadow-[0_0_10px_rgba(0,255,170,0.5)] uppercase" style={{ fontFamily: "'Black Ops One', cursive" }}>
+            <h1 className="text-4xl sm:text-6xl md:text-8xl tracking-widest text-[#00ffaa] mb-6 filter drop-shadow-[0_0_10px_rgba(0,255,170,0.5)] uppercase break-words" style={{ fontFamily: "'Black Ops One', cursive" }}>
               Mohammed Abdrabou
             </h1>
           </motion.div>
@@ -59,14 +59,14 @@ const Hero: React.FC = () => {
               React/Next.js framework.
             </p>
           </motion.div>
-          <div className="mt-16 flex justify-center gap-6">
+          <div className="mt-12 md:mt-16 flex flex-col sm:flex-row justify-center gap-4 sm:gap-6">
             <button
               onClick={() =>
                 document
                   .getElementById("missions")
                   ?.scrollIntoView({ behavior: "smooth" })
               }
-              className="px-8 py-3 bg-[#00ffaa] text-black font-display text-xl tracking-widest hover:bg-[#ffae00] hover:scale-105 transition-all duration-300"
+              className="px-6 sm:px-8 py-3 bg-[#00ffaa] text-black font-display text-base sm:text-xl tracking-widest hover:bg-[#ffae00] hover:scale-105 transition-all duration-300"
             >
               ENGAGE MISSION
             </button>
@@ -76,7 +76,7 @@ const Hero: React.FC = () => {
                   .getElementById("loadout")
                   ?.scrollIntoView({ behavior: "smooth" })
               }
-              className="px-8 py-3 border border-[#00ffaa] text-[#00ffaa] font-display text-xl tracking-widest hover:bg-[#00ffaa]/10 transition-all duration-300"
+              className="px-6 sm:px-8 py-3 border border-[#00ffaa] text-[#00ffaa] font-display text-base sm:text-xl tracking-widest hover:bg-[#00ffaa]/10 transition-all duration-300"
             >
               VIEW LOADOUT
             </button>
