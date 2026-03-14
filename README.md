@@ -1,85 +1,36 @@
-# Mohammed's Personal Portfolio
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
----
+## Getting Started
 
-## 🚀 Welcome to My Portfolio!
+First, run the development server:
 
-This repository hosts the source code for my personal portfolio website, a dynamic showcase of my projects, skills, and professional journey. Built to highlight my expertise in web development and other technical domains, this site serves as a central hub for anyone interested in my work.
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
----
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## ✨ Features
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-* **Responsive Design:** Optimized for seamless viewing across various devices, from desktops to mobile phones.
-* **Interactive Project Showcase:** Dedicated sections for my projects, complete with descriptions, technologies used, and live demos or repository links.
-* **Skills Overview:** A clear presentation of my technical proficiencies and tools.
-* **About Me Section:** A concise introduction to my professional background, passions, and goals.
-* **Contact Form:** An easy way for visitors to get in touch with me directly.
-* **Dark Mode (Default) & Light Mode Toggle:** The website defaults to a sleek dark theme, with an option for users to switch to a comfortable light mode.
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
----
+## Learn More
 
-## 🛠️ Technologies Used
+To learn more about Next.js, take a look at the following resources:
 
-This project is built using the foundational web technologies:
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-* **Frontend:**
-    * `HTML5`: For structuring the content and semantics of the website.
-    * `CSS3`: For styling the layout, typography, and responsive design, making the site visually appealing across all devices.
-    * `JavaScript` (ES6+): For adding interactivity and dynamic elements, including the theme toggle and blog functionality.
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-* **Deployment:**
-    * `Hostinger`: For hosting the live version of the portfolio.
+## Deploy on Vercel
 
----
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-## 🏃 Getting Started
-
-To explore the codebase and make any changes, follow these simple steps.
-
-### Installation
-
-This project is primarily a static web application built with HTML, CSS, and JavaScript, designed to be deployed directly. Therefore, there are no specific installation steps for dependencies to "run" it locally in a development server. You can simply open the `index.html` file in your browser to view the site, though for development, using a live server extension in your IDE (like Live Server for VS Code) is recommended.
-
-1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/moabdrabou/moabdrabou-portfolio.git
-    ```
-2.  **Navigate into the project directory:**
-    ```bash
-    cd moabdrabou-portfolio
-    ```
-
-From here, you can open the project in your favorite code editor to review the files, modify the code, or contribute.
-
----
-
-## 🌐 Live Demo
-
-You can view the live version of my portfolio here: https://moabdrabou.dev/
-
----
-
-## 🤝 Contributing
-
-Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/moabdrabou/moabdrabou-portfolio/issues).
-
-1.  **Fork the Project**
-2.  **Create your Feature Branch** (`git checkout -b feature/AmazingFeature`)
-3.  **Commit your Changes** (`git commit -m 'Add some AmazingFeature'`)
-4.  **Push to the Branch** (`git push origin feature/AmazingFeature`)
-5.  **Open a Pull Request**
-
----
-
-## 📄 License
-
-Distributed under the `MIT License`. See `LICENSE` for more information.
-
----
-
-## 📞 Contact
-
-Mohammed Abdrabou - [LinkedIn Profile](https://www.linkedin.com/in/yourlinkedinprofile/) - moabdrabou@hotmail.com
-
-Project Link: [https://github.com/moabdrabou/moabdrabou-portfolio](https://github.com/moabdrabou/moabdrabou-portfolio)
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Black+Ops+One&family=Rajdhani:wght@400;500;600;700&display=swap');
+
+:root {
+  --tactical-bg: #050505;
+  --tactical-primary: #00ffaa; /* Electric Cyan */
+  --tactical-accent: #ffae00; /* Safety Orange */
+  --tactical-muted: #1a2a24;
+  --tactical-border: rgba(0, 255, 170, 0.2);
+  --tactical-font: 'Rajdhani', sans-serif;
+  --tactical-display: 'Bebas Neue', cursive;
+}
+
+.tactical-hud {
+  color: var(--tactical-primary);
+  font-family: var(--tactical-font);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.tactical-hud section[id] {
+  scroll-margin-top: 6rem;
+}
+
+/* CRT Scanlines */
+.scanlines::before {
+  content: " ";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 100;
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+}
+
+/* Tactical Corner Brackets */
+.corner-frame {
+  position: relative;
+  border: 1px solid var(--tactical-border);
+  padding: 1.5rem;
+}
+
+.corner-frame::before,
+.corner-frame::after,
+.corner-frame-inner::before,
+.corner-frame-inner::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-color: var(--tactical-primary);
+  border-style: solid;
+}
+
+.corner-frame::before { top: -2px; left: -2px; border-width: 2px 0 0 2px; }
+.corner-frame::after { top: -2px; right: -2px; border-width: 2px 2px 0 0; }
+.corner-frame-inner::before { bottom: -2px; left: -2px; border-width: 0 0 2px 2px; }
+.corner-frame-inner::after { bottom: -2px; right: -2px; border-width: 0 2px 2px 0; }
+
+/* Glitch Effect */
+@keyframes glitch {
+  0% { transform: translate(0) }
+  20% { transform: translate(-2px, 2px) }
+  40% { transform: translate(-2px, -2px) }
+  60% { transform: translate(2px, 2px) }
+  80% { transform: translate(2px, -2px) }
+  100% { transform: translate(0) }
+}
+
+@keyframes scan {
+  0% { top: 0% }
+  50% { top: 100% }
+  100% { top: 0% }
+}
+
+@keyframes flicker {
+  0% { opacity: 1; color: #00ffaa; }
+  5% { opacity: 0.8; color: #ffae00; }
+  10% { opacity: 1; color: #00ffaa; }
+  15% { opacity: 0.9; color: #ff0033; }
+  20% { opacity: 1; color: #00ffaa; }
+  100% { opacity: 1; color: #00ffaa; }
+}
+
+.animate-scan {
+  animation: scan 2s linear infinite;
+}
+
+.animate-flicker {
+  animation: flicker 0.3s ease-in-out;
+}
+
+.glitch-hover:hover {
+  animation: glitch 0.3s cubic-bezier(.25,.46,.45,.94) both infinite;
+  text-shadow: 2px 0 #ff00c1, -2px 0 #00fff9;
+}
+
+/* Tactical Text Reveal */
+.intel-reveal {
+  overflow: hidden;
+  border-right: .15em solid var(--tactical-primary);
+  white-space: nowrap;
+  letter-spacing: .15em;
+  animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+}
+
+@keyframes typing { from { width: 0 } to { width: 100% } }
+@keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: var(--tactical-primary); } }
