@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, lazy, Suspense } from "react";
+import React, { useState, useCallback, lazy, Suspense } from "react";
 import "./tactical.css";
 import { GithubIcon, LinkedinIcon, TwitterIcon } from "@/components/icons";
 import { Mail, Menu, X, Crosshair, Wrench, Shield, Radio } from "lucide-react";
@@ -10,6 +10,40 @@ const Missions = lazy(() => import("./components/sections/Missions"));
 const Loadout = lazy(() => import("./components/sections/Loadout"));
 const Background = lazy(() => import("@/components/Background"));
 const BootSequence = lazy(() => import("@/components/ui/BootSequence"));
+
+const navLinks = [
+  { href: "#missions", label: "MISSIONS", sub: "01_PROJECTS", icon: Crosshair },
+  { href: "#loadout", label: "LOADOUT", sub: "02_SKILLS", icon: Wrench },
+  { href: "#intel", label: "INTEL", sub: "03_ABOUT", icon: Shield },
+  { href: "#comms", label: "COMMS", sub: "04_CONNECT", icon: Radio },
+];
+
+const contactLinks = [
+  {
+    icon: GithubIcon,
+    href: "https://github.com/moabdrabou",
+    label: "GitHub",
+    meta: "[ACCESS_REPO]",
+  },
+  {
+    icon: LinkedinIcon,
+    href: "https://www.linkedin.com/in/moabdrabou/",
+    label: "LinkedIn",
+    meta: "[OPERATOR_DOSSIER]",
+  },
+  {
+    icon: TwitterIcon,
+    href: "https://x.com/MoeAbdrabou",
+    label: "Twitter",
+    meta: "[GLOBAL_FEED]",
+  },
+  {
+    icon: Mail,
+    href: "mailto:moabdrabou@hotmail.com",
+    label: "Email",
+    meta: "[DIRECT_UPLINK]",
+  },
+];
 
 const RedesignApp: React.FC = () => {
   const [isBooting, setIsBooting] = useState(true);
@@ -24,23 +58,16 @@ const RedesignApp: React.FC = () => {
 
   const handleSendSignal = () => {
     setSignalStatus("TRANSMITTING");
-    
+
     // Simulate transmission delay
     setTimeout(() => {
       setSignalStatus("SENT");
       window.location.href = "mailto:moabdrabou@hotmail.com";
-      
+
       // Reset after some time
       setTimeout(() => setSignalStatus("IDLE"), 4000);
     }, 1200);
   };
-
-  const navLinks = [
-    { href: "#missions", label: "MISSIONS", sub: "01_PROJECTS", icon: Crosshair },
-    { href: "#loadout", label: "LOADOUT", sub: "02_SKILLS", icon: Wrench },
-    { href: "#intel", label: "INTEL", sub: "03_ABOUT", icon: Shield },
-    { href: "#comms", label: "COMMS", sub: "04_CONNECT", icon: Radio },
-  ];
 
   return (
     <>
@@ -119,14 +146,14 @@ const RedesignApp: React.FC = () => {
           </div>
 
           {/* Mobile Menu Button */}
-          {!isMenuOpen && (
+          {!isMenuOpen ? (
             <button
               className="md:hidden text-[#00ffaa] p-2 hover:bg-[#00ffaa]/10 transition-colors"
               onClick={toggleMenu}
             >
               <Menu size={32} />
             </button>
-          )}
+          ) : null}
         </div>
       </header>
 
@@ -319,32 +346,7 @@ const RedesignApp: React.FC = () => {
             </p>
 
             <div className="flex flex-wrap justify-center gap-6 md:gap-10 mb-16">
-              {[
-                {
-                  icon: GithubIcon,
-                  href: "https://github.com/moabdrabou",
-                  label: "GitHub",
-                  meta: "[ACCESS_REPO]",
-                },
-                {
-                  icon: LinkedinIcon,
-                  href: "https://www.linkedin.com/in/moabdrabou/",
-                  label: "LinkedIn",
-                  meta: "[OPERATOR_DOSSIER]",
-                },
-                {
-                  icon: TwitterIcon,
-                  href: "https://x.com/MoeAbdrabou",
-                  label: "Twitter",
-                  meta: "[GLOBAL_FEED]",
-                },
-                {
-                  icon: Mail,
-                  href: "mailto:moabdrabou@hotmail.com",
-                  label: "Email",
-                  meta: "[DIRECT_UPLINK]",
-                },
-              ].map((link) => (
+              {contactLinks.map((link) => (
                 <div key={link.label} className="relative group flex flex-col items-center">
                   <a
                     href={link.href}
@@ -382,23 +384,21 @@ const RedesignApp: React.FC = () => {
                 ${signalStatus === "SENT" ? "bg-white text-black cursor-default border-2 border-[#00ffaa]" : ""}
               `}
             >
-              {signalStatus === "IDLE" && "SEND_ENCRYPTED_SIGNAL"}
-              {signalStatus === "TRANSMITTING" && (
+              {signalStatus === "IDLE" ? "SEND_ENCRYPTED_SIGNAL" : signalStatus === "TRANSMITTING" ? (
                 <span className="flex items-center gap-2">
                   <span className="animate-pulse">UPLOADING_DATA...</span>
                 </span>
-              )}
-              {signalStatus === "SENT" && "UPLINK_ESTABLISHED // MISSION_READY"}
+              ) : "UPLINK_ESTABLISHED // MISSION_READY"}
 
               {/* Progress bar for transmitting state */}
-              {signalStatus === "TRANSMITTING" && (
-                <motion.div 
+              {signalStatus === "TRANSMITTING" ? (
+                <motion.div
                   className="absolute bottom-0 left-0 h-1 bg-black/40"
                   initial={{ width: 0 }}
                   animate={{ width: "100%" }}
                   transition={{ duration: 1.5, ease: "linear" }}
                 />
-              )}
+              ) : null}
             </button>
           </div>
         </section>

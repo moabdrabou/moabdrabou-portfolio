@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const BOOT_LOGS = [
@@ -14,6 +14,7 @@ const BootSequence: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
   const [done, setDone] = useState(false);
   const onCompleteRef = useRef(onComplete);
   onCompleteRef.current = onComplete;
+  const bootId = useMemo(() => Math.random().toString(16).substring(2, 10).toUpperCase(), []);
 
   useEffect(() => {
     if (done) return;
@@ -74,8 +75,7 @@ const BootSequence: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
         <div className="mt-12 flex justify-between items-end opacity-40 border-t border-[#00ffaa]/20 pt-4">
           <div className="text-[10px] space-y-1">
             <div>
-              BOOT_ID:{" "}
-              {Math.random().toString(16).substring(2, 10).toUpperCase()}
+              BOOT_ID: {bootId}
             </div>
             <div>SECTOR_7_UPLINK: STABLE</div>
           </div>
