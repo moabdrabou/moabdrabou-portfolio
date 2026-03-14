@@ -25,3 +25,5 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./Live/
           server-dir: ./public_html/
+          protocol: ftp
+          port: 21
