@@ -296,7 +296,7 @@ const RedesignApp: React.FC = () => {
               <span className="text-[10px] tracking-[0.5em] text-[#ffae00] mb-4 block font-bold">
                 Bio-Data
               </span>
-              <h2 className="font-display text-3xl md:text-5xl mb-8 tracking-widest">
+              <h2 className="font-display text-2xl md:text-5xl mb-8 tracking-wider md:tracking-widest whitespace-nowrap">
                 &gt;&gt;&gt; MISSION BRIEFING
               </h2>
               <div className="grid md:grid-cols-2 gap-12 items-center">

@@ -43,7 +43,7 @@ const Missions: React.FC = () => {
   return (
     <section id="missions" className="py-24 border-t border-[#00ffaa]/10">
       <div className="flex items-center gap-4 mb-12">
-        <h2 className="font-display text-3xl md:text-5xl tracking-widest uppercase">
+        <h2 className="font-display text-2xl md:text-5xl tracking-wider md:tracking-widest uppercase whitespace-nowrap">
           &gt;&gt;&gt; ACTIVE MISSIONS
         </h2>
         <div className="h-[2px] flex-1 bg-gradient-to-r from-[#00ffaa]/40 to-transparent" />
