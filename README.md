@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Mohammed Abdrabou — Portfolio
+
+A tactical/military-themed personal portfolio built with React, TypeScript, and Vite. Live at [moabdrabou.dev](https://moabdrabou.dev).
+
+## Tech Stack
+
+- **React 19** with TypeScript
+- **Vite 7** for build tooling
+- **Tailwind CSS 4** for styling
+- **Framer Motion** for animations
+- **Lucide React** for icons
+
+## Features
+
+- **Boot Sequence** — Animated splash screen with typing effects and tactical HUD elements
+- **Hero Section** — Animated title with scan line overlays and tactical role badges
+- **Missions** — Project portfolio grid showcasing completed work with tech stacks and live links
+- **Loadout** — Skills breakdown with animated mastery-level progress bars
+- **Intel** — Bio and mission briefing with architecture logs
+- **Comms** — Contact section with signal transmission animation and social links
+- **Aurora Background** — Layered animated gradient background effect
+- Custom CRT scanlines, glitch effects, and flicker animations throughout
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install --legacy-peer-deps
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Scripts
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Command             | Description                  |
+| ------------------- | ---------------------------- |
+| `npm run dev`       | Start Vite dev server        |
+| `npm run build`     | TypeScript check + Vite build|
+| `npm run preview`   | Preview production build     |
+| `npm run lint`      | Run ESLint                   |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project Structure
 
-## Learn More
+```
+src/
+├── components/
+│   ├── ui/           # Boot sequence splash screen
+│   ├── sections/     # Hero, Missions, Loadout page sections
+│   ├── Background.tsx
+│   └── icons.tsx
+├── assets/           # Images, logos, favicon
+├── App.tsx           # Main app with lazy-loaded sections
+├── globals.css       # Tailwind config and design tokens
+├── tactical.css      # Tactical theme animations and effects
+└── main.tsx          # Entry point
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Deployment
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Deployed to Hostinger via GitHub Actions on push to `main`. The workflow installs dependencies, builds the project, and syncs the `Live/` output directory to `domains/moabdrabou.dev/public_html/` over FTP.
