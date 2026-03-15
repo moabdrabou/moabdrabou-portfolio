@@ -2,7 +2,7 @@ import React, { useState, useCallback, lazy, Suspense } from "react";
 import "./tactical.css";
 import { GithubIcon, LinkedinIcon, TwitterIcon } from "@/components/icons";
 import { Mail, Menu, X, Crosshair, Wrench, Shield, Radio } from "lucide-react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 import maLogo from "./assets/malogo.png";
 
 const Hero = lazy(() => import("./components/sections/Hero"));
@@ -49,10 +49,28 @@ const RedesignApp: React.FC = () => {
   const [isBooting, setIsBooting] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [signalStatus, setSignalStatus] = useState<"IDLE" | "TRANSMITTING" | "SENT">("IDLE");
+  const [activeSection, setActiveSection] = useState<string>("");
 
   const handleBootComplete = useCallback(() => {
     setIsBooting(false);
   }, []);
+
+  React.useEffect(() => {
+    if (isBooting) return;
+    const sections = document.querySelectorAll("section[id]");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { threshold: 0.3, rootMargin: "-80px 0px 0px 0px" }
+    );
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, [isBooting]);
 
   const toggleMenu = () => setIsMenuOpen(prev => !prev);
 
@@ -70,7 +88,7 @@ const RedesignApp: React.FC = () => {
   };
 
   return (
-    <>
+    <MotionConfig reducedMotion="user">
       <Suspense fallback={null}>
         <AnimatePresence>
           {isBooting && <BootSequence key="boot" onComplete={handleBootComplete} />}
@@ -82,17 +100,35 @@ const RedesignApp: React.FC = () => {
         animate={{ opacity: isBooting ? 0 : 1 }}
         transition={{ duration: 0.8 }}
         style={{ pointerEvents: isBooting ? 'none' : 'auto' }}
-        className="tactical-hud min-h-screen text-[#00ffaa] relative"
+        className="tactical-hud min-h-dvh text-[#00ffaa] relative"
       >
         <Suspense fallback={null}>
           <Background />
         </Suspense>
+
+        {/* Skip to main content (keyboard / screen reader) */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200] focus:px-4 focus:py-2 focus:bg-[#00ffaa] focus:text-black focus:font-bold focus:tracking-widest focus:text-sm"
+        >
+          SKIP TO CONTENT
+        </a>
+
+        {/* Screen reader announcements */}
+        <div aria-live="polite" role="status" className="sr-only">
+          {signalStatus === "TRANSMITTING"
+            ? "Transmitting signal..."
+            : signalStatus === "SENT"
+            ? "Signal sent. Uplink established."
+            : ""}
+        </div>
 
       {/* Tactical Header / Navbar */}
       <header className="fixed top-0 left-0 w-full px-6 py-4 z-50 border-b border-[#00ffaa]/10 backdrop-blur-md bg-black/50">
         <div className="max-w-7xl mx-auto flex justify-between items-center relative">
           <a
             href="#hero"
+            aria-label="Mohammed Abdrabou — back to top"
             className="flex items-center gap-4 hover:opacity-80 transition-opacity"
           >
             <div className="w-12 h-12 border-2 border-[#00ffaa] flex items-center justify-center transition-all duration-300 p-1 hover:shadow-[0_0_15px_rgba(0,255,170,0.5),inset_0_0_15px_rgba(0,255,170,0.1)] hover:border-[#00ffaa] hover:scale-105">
@@ -115,24 +151,33 @@ const RedesignApp: React.FC = () => {
 
             {/* Main Nav Items */}
             <nav className="flex items-center gap-1 lg:gap-4">
-              {navLinks.map((link, idx) => (
+              {navLinks.map((link, idx) => {
+                const isActive = activeSection === link.href.slice(1);
+                return (
                 <React.Fragment key={link.href}>
                   <a
                     href={link.href}
-                    className="group relative flex flex-col items-center px-4 py-2 transition-all duration-300"
+                    aria-label={link.label}
+                    aria-current={isActive ? "location" : undefined}
+                    className={`group relative flex flex-col items-center px-4 py-2 transition-all duration-300 ${isActive ? "text-white" : ""}`}
                   >
                     {/* Hover Bracket Wrap [ ] */}
                     <span className="absolute inset-0 border-x-2 border-[#00ffaa] scale-y-0 group-hover:scale-y-100 opacity-0 group-hover:opacity-100 transition-all duration-300" />
-                    
+
                     <div className="flex items-center gap-2 relative z-10">
-                      <link.icon className="w-3 h-3 opacity-40 group-hover:opacity-100 group-hover:text-white transition-all" />
-                      <span className="font-display text-sm tracking-[0.2em] group-hover:text-white group-hover:animate-flicker">
+                      <link.icon className={`w-3 h-3 transition-all ${isActive ? "opacity-100 text-white" : "opacity-40 group-hover:opacity-100 group-hover:text-white"}`} aria-hidden="true" />
+                      <span className={`font-display text-sm tracking-[0.2em] group-hover:text-white group-hover:animate-flicker ${isActive ? "text-white" : ""}`}>
                         // {link.label}
                       </span>
                     </div>
-                    <span className="text-[8px] font-mono opacity-30 mt-1 tracking-widest group-hover:opacity-100 transition-opacity">
+                    <span className="text-[10px] font-mono opacity-50 mt-1 tracking-widest group-hover:opacity-100 transition-opacity" aria-hidden="true">
                       {link.sub}
                     </span>
+
+                    {/* Active indicator */}
+                    {isActive && (
+                      <span className="absolute bottom-0 left-1/4 right-1/4 h-[1px] bg-[#00ffaa]" />
+                    )}
 
                     {/* Scanning Animation Line */}
                     <div className="absolute left-0 w-full h-[1px] bg-[#00ffaa] opacity-0 group-hover:opacity-50 group-hover:animate-scan pointer-events-none" />
@@ -141,7 +186,8 @@ const RedesignApp: React.FC = () => {
                     <div className="w-[1px] h-8 bg-gradient-to-b from-transparent via-[#00ffaa]/20 to-transparent mx-2" />
                   )}
                 </React.Fragment>
-              ))}
+                );
+              })}
             </nav>
           </div>
 
@@ -150,8 +196,11 @@ const RedesignApp: React.FC = () => {
             <button
               className="md:hidden text-[#00ffaa] p-2 hover:bg-[#00ffaa]/10 transition-colors"
               onClick={toggleMenu}
+              aria-label="Open navigation menu"
+              aria-expanded={isMenuOpen}
+              aria-controls="mobile-nav"
             >
-              <Menu size={32} />
+              <Menu size={32} aria-hidden="true" />
             </button>
           ) : null}
         </div>
@@ -161,6 +210,10 @@ const RedesignApp: React.FC = () => {
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
+            id="mobile-nav"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Navigation menu"
             initial={{ opacity: 0, y: "-100%" }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: "-100%" }}
@@ -187,9 +240,10 @@ const RedesignApp: React.FC = () => {
                 </div>
                 <button
                   onClick={toggleMenu}
+                  aria-label="Close navigation menu"
                   className="p-3 border-2 border-[#00ffaa] bg-[#00ffaa]/10 hover:bg-[#00ffaa] hover:text-black transition-all"
                 >
-                  <X size={28} />
+                  <X size={28} aria-hidden="true" />
                 </button>
               </div>
 
@@ -226,23 +280,26 @@ const RedesignApp: React.FC = () => {
                         href="https://github.com/moabdrabou"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="hover:text-[#00ffaa] transition-colors hover:scale-110"
+                        aria-label="GitHub profile"
+                        className="hover:text-[#00ffaa] transition-colors hover:scale-110 flex items-center justify-center w-11 h-11"
                       >
-                        <GithubIcon className="w-10 h-10" />
+                        <GithubIcon className="w-8 h-8" aria-hidden="true" />
                       </a>
                       <a
                         href="https://www.linkedin.com/in/moabdrabou/"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="hover:text-[#00ffaa] transition-colors hover:scale-110"
+                        aria-label="LinkedIn profile"
+                        className="hover:text-[#00ffaa] transition-colors hover:scale-110 flex items-center justify-center w-11 h-11"
                       >
-                        <LinkedinIcon className="w-10 h-10" />
+                        <LinkedinIcon className="w-8 h-8" aria-hidden="true" />
                       </a>
                       <a
                         href="mailto:moabdrabou@hotmail.com"
-                        className="hover:text-[#00ffaa] transition-colors hover:scale-110"
+                        aria-label="Send email"
+                        className="hover:text-[#00ffaa] transition-colors hover:scale-110 flex items-center justify-center w-11 h-11"
                       >
-                        <Mail className="w-10 h-10" />
+                        <Mail className="w-8 h-8" aria-hidden="true" />
                       </a>
                     </div>
                   </div>
@@ -276,7 +333,7 @@ const RedesignApp: React.FC = () => {
         )}
       </AnimatePresence>
 
-      <main className="pt-32 px-6 max-w-7xl mx-auto">
+      <main id="main-content" className="pt-32 px-6 max-w-7xl mx-auto">
         <Suspense fallback={null}>
           <Hero />
         </Suspense>
@@ -296,19 +353,19 @@ const RedesignApp: React.FC = () => {
               <span className="text-[10px] tracking-[0.5em] text-[#ffae00] mb-4 block font-bold">
                 Bio-Data
               </span>
-              <h2 className="font-display text-2xl md:text-5xl mb-8 tracking-wider md:tracking-widest whitespace-nowrap">
+              <h2 className="font-display text-2xl md:text-5xl mb-8 tracking-wider md:tracking-widest">
                 &gt;&gt;&gt; MISSION BRIEFING
               </h2>
               <div className="grid md:grid-cols-2 gap-12 items-center">
                 <div className="space-y-6">
-                  <p className="text-lg opacity-80 leading-relaxed font-mono">
+                  <p className="text-lg opacity-80 leading-relaxed">
                     I'm a passionate Full-Stack Developer with a deep interest
                     in Artificial Intelligence and scalable systems. My journey
                     began with a curiosity for how things work under the hood,
                     leading me to master modern web technologies and explore the
                     frontiers of machine learning.
                   </p>
-                  <p className="text-lg opacity-80 leading-relaxed font-mono">
+                  <p className="text-lg opacity-80 leading-relaxed">
                     When I'm not coding, you can find me building
                     community-focused gaming projects or optimizing my tactical
                     workflow. I believe in clean code, user-centric design, and
@@ -352,10 +409,10 @@ const RedesignApp: React.FC = () => {
                     href={link.href}
                     target={link.href.startsWith("mailto") ? undefined : "_blank"}
                     rel="noopener noreferrer"
+                    aria-label={link.label}
                     className="w-14 h-14 md:w-20 md:h-20 border border-[#00ffaa]/30 flex items-center justify-center hover:bg-[#00ffaa] hover:text-black hover:scale-110 transition-all duration-300"
-                    title={link.label}
                   >
-                    <link.icon className="w-5 h-5 md:w-8 md:h-8" />
+                    <link.icon className="w-5 h-5 md:w-8 md:h-8" aria-hidden="true" />
                   </a>
                   <span className="absolute -bottom-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-mono text-[10px] text-[#ffae00] tracking-widest whitespace-nowrap">
                     {link.meta}
@@ -379,9 +436,9 @@ const RedesignApp: React.FC = () => {
               onClick={handleSendSignal}
               disabled={signalStatus !== "IDLE"}
               className={`w-full md:w-auto px-4 md:px-12 py-4 font-display text-sm md:text-2xl tracking-[0.1em] md:tracking-[0.3em] transition-all uppercase relative overflow-hidden group
-                ${signalStatus === "IDLE" ? "bg-[#00ffaa] text-black hover:bg-white hover:scale-105" : ""}
-                ${signalStatus === "TRANSMITTING" ? "bg-[#ffae00] text-black cursor-wait" : ""}
-                ${signalStatus === "SENT" ? "bg-white text-black cursor-default border-2 border-[#00ffaa]" : ""}
+                ${signalStatus === "IDLE" ? "cursor-pointer bg-[#00ffaa] text-black hover:bg-white hover:scale-105" : ""}
+                ${signalStatus === "TRANSMITTING" ? "cursor-wait bg-[#ffae00] text-black" : ""}
+                ${signalStatus === "SENT" ? "cursor-default bg-white text-black border-2 border-[#00ffaa]" : ""}
               `}
             >
               {signalStatus === "IDLE" ? "SEND_ENCRYPTED_SIGNAL" : signalStatus === "TRANSMITTING" ? (
@@ -409,7 +466,7 @@ const RedesignApp: React.FC = () => {
         SECURED ENCRYPTION
       </footer>
       </motion.div>
-    </>
+    </MotionConfig>
   );
 };
 

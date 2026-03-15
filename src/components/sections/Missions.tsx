@@ -13,6 +13,7 @@ const missions = [
       "Enterprise-grade Webflow platform for the Middle East Centre. Engineered complex CMS architecture for academic programs and global alumni databases.",
     tech: ["WEBFLOW CMS", "ENTERPRISE DESIGN", "SEO"],
     image: mbsImage,
+    imageAlt: "Screenshot of the University of Manchester Middle East Centre website",
     link: "https://www.manchester.ac.ae/",
   },
   {
@@ -23,6 +24,7 @@ const missions = [
       "High-performance database for 'Once Human' character builds. Real-time data fetching via Supabase and optimized filtering.",
     tech: ["REACT", "TYPESCRIPT", "SUPABASE", "TAILWIND CSS"],
     image: ohBuildsImage,
+    imageAlt: "Screenshot of Build Vault — Once Human character builds database app",
     link: "https://ohbuilds.moabdrabou.dev/",
     repo: "https://github.com/moabdrabou/OnceHuman-Builds",
   },
@@ -34,6 +36,7 @@ const missions = [
       "Mobile-responsive tracking app. Features GitHub-style heatmaps and consistency visualization for objective-based progression.",
     tech: ["REACT", "TYPESCRIPT", "SUPABASE", "TAILWIND CSS"],
     image: HabitTracker,
+    imageAlt: "Screenshot of Habit Tracker app showing GitHub-style heatmap visualization",
     link: "https://do.moabdrabou.dev/",
     repo: "https://github.com/moabdrabou/habit-tracker",
   },
@@ -43,7 +46,7 @@ const Missions: React.FC = () => {
   return (
     <section id="missions" className="py-24 border-t border-[#00ffaa]/10">
       <div className="flex items-center gap-4 mb-12">
-        <h2 className="font-display text-2xl md:text-5xl tracking-wider md:tracking-widest uppercase whitespace-nowrap">
+        <h2 className="font-display text-2xl md:text-5xl tracking-wider md:tracking-widest uppercase">
           &gt;&gt;&gt; ACTIVE MISSIONS
         </h2>
         <div className="h-[2px] flex-1 bg-gradient-to-r from-[#00ffaa]/40 to-transparent" />
@@ -71,7 +74,7 @@ const Missions: React.FC = () => {
               <div className="aspect-video mb-6 overflow-hidden border border-[#00ffaa]/20 grayscale hover:grayscale-0 transition-all duration-500">
                 <img
                   src={mission.image}
-                  alt={mission.title}
+                  alt={mission.imageAlt}
                   loading="lazy"
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
@@ -100,7 +103,8 @@ const Missions: React.FC = () => {
                   href={mission.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="py-2 border border-[#00ffaa] text-center text-[10px] tracking-[0.2em] font-bold hover:bg-[#00ffaa] hover:text-black transition-colors uppercase"
+                  aria-label={`View ${mission.title} live site`}
+                  className="cursor-pointer py-2 border border-[#00ffaa] text-center text-[10px] tracking-[0.2em] font-bold hover:bg-[#00ffaa] hover:text-black transition-colors uppercase"
                 >
                   COORDINATES
                 </a>
@@ -109,12 +113,13 @@ const Missions: React.FC = () => {
                     href={mission.repo}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="py-2 border border-[#00ffaa]/40 text-center text-[10px] tracking-[0.2em] font-bold hover:bg-[#00ffaa]/20 transition-colors uppercase"
+                    aria-label={`View ${mission.title} source code on GitHub`}
+                    className="cursor-pointer py-2 border border-[#00ffaa]/40 text-center text-[10px] tracking-[0.2em] font-bold hover:bg-[#00ffaa]/20 transition-colors uppercase"
                   >
                     ACCESS_FILES
                   </a>
                 ) : (
-                  <div className="py-2 border border-[#00ffaa]/10 text-center text-[10px] tracking-[0.2em] opacity-20 cursor-not-allowed uppercase">
+                  <div className="py-2 border border-[#00ffaa]/10 text-center text-[10px] tracking-[0.2em] opacity-40 cursor-not-allowed uppercase" aria-label="Repository classified" role="img">
                     CLASSIFIED
                   </div>
                 )}

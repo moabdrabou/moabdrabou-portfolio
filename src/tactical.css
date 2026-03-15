@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Black+Ops+One&family=Rajdhani:wght@400;500;600;700&display=swap');
-
 :root {
   --tactical-bg: #050505;
   --tactical-primary: #00ffaa; /* Electric Cyan */
@@ -13,7 +11,7 @@
 .tactical-hud {
   color: var(--tactical-primary);
   font-family: var(--tactical-font);
-  min-height: 100vh;
+  min-height: 100dvh;
   position: relative;
   overflow-x: hidden;
 }
@@ -110,3 +108,23 @@
 
 @keyframes typing { from { width: 0 } to { width: 100% } }
 @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: var(--tactical-primary); } }
+
+/* Focus visible styles for keyboard navigation */
+:focus-visible {
+  outline: 2px solid var(--tactical-primary);
+  outline-offset: 3px;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .animate-scan,
+  .animate-flicker,
+  .glitch-hover:hover,
+  .intel-reveal {
+    animation: none;
+  }
+
+  * {
+    transition-duration: 0.01ms !important;
+  }
+}

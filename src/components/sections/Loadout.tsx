@@ -65,7 +65,7 @@ const Loadout: React.FC = () => {
   return (
     <section id="loadout" className="py-24 border-t border-[#00ffaa]/10">
       <div className="flex items-center gap-4 mb-12">
-        <h2 className="font-display text-2xl md:text-5xl tracking-wider md:tracking-widest uppercase whitespace-nowrap">
+        <h2 className="font-display text-2xl md:text-5xl tracking-wider md:tracking-widest uppercase">
           &gt;&gt;&gt; OPERATOR LOADOUT
         </h2>
         <div className="h-[2px] flex-1 bg-gradient-to-r from-[#00ffaa]/40 to-transparent" />
@@ -100,14 +100,21 @@ const Loadout: React.FC = () => {
             </div>
 
             {/* Mastery Bar */}
-            <div className="h-2 w-full bg-[#00ffaa]/10 border border-[#00ffaa]/30 mb-8 relative">
+            <div
+              className="h-2 w-full bg-[#00ffaa]/10 border border-[#00ffaa]/30 mb-8 relative"
+              role="progressbar"
+              aria-valuenow={skill.level}
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-label={`${skill.label} mastery: ${skill.level}%`}
+            >
               <motion.div
                 className="h-full bg-[#00ffaa] relative"
                 initial={{ width: 0 }}
                 whileInView={{ width: `${skill.level}%` }}
                 transition={{ duration: 1, delay: 0.5 }}
               >
-                <div className="absolute top-0 right-0 w-1 h-full bg-white animate-pulse" />
+                <div className="absolute top-0 right-0 w-1 h-full bg-white animate-pulse" aria-hidden="true" />
               </motion.div>
             </div>
 
