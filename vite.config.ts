@@ -54,7 +54,15 @@ function inlineCssAndDeferJsPlugin(): Plugin {
         .filter(Boolean)
         .join("\n    ");
 
-      html = html.replace("</head>", `${inlinedStyle}</head>`);
+      // Find the LCP image to preload
+      const lcpImageAsset = Object.values(bundle).find(
+        (a) => a.type === "asset" && a.fileName.includes("MBS") && a.fileName.endsWith(".webp")
+      );
+      const lcpPreloadLink = lcpImageAsset 
+        ? `\n    <link rel="preload" as="image" href="/${lcpImageAsset.fileName}" />` 
+        : "";
+
+      html = html.replace("</head>", `${inlinedStyle}${lcpPreloadLink}\n  </head>`);
       html = html.replace("</body>", `    ${deferredJs}\n  </body>`);
 
       htmlAsset.source = html;
