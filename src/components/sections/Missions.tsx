@@ -75,7 +75,10 @@ const Missions: React.FC = () => {
                 <img
                   src={mission.image}
                   alt={mission.imageAlt}
+                  width={800}
+                  height={450}
                   loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
               </div>
