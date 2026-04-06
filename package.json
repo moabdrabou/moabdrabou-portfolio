@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@preact/signals": "^2.9.0",
-    "framer-motion": "^12.23.24",
     "lucide-react": "^0.554.0",
     "preact": "^10.29.1",
     "react": "19.2.0",

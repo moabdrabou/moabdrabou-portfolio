@@ -1,0 +1,1 @@
+import{A as c,d as u,y as f}from"./vendor-react-CgIrDjUY.js";function b(t){const r=c(null),[s,o]=u(!1);return f(()=>{const e=r.current;if(!e)return;const n=new IntersectionObserver(([i])=>{i.isIntersecting&&(o(!0),n.unobserve(e))},{threshold:.1,...t});return n.observe(e),()=>n.disconnect()},[]),{ref:r,inView:s}}export{b as u};
