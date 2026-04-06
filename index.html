@@ -47,6 +47,24 @@
     </noscript>
   </head>
   <body>
+    <!-- Static boot screen — paints instantly before JS loads (drives FCP/LCP) -->
+    <div id="boot-static" style="position:fixed;inset:0;z-index:2000;background:#000;display:flex;align-items:center;justify-content:center;padding:1.5rem;font-family:'Courier New',monospace">
+      <div style="width:100%;max-width:42rem">
+        <div id="boot-lines" style="display:flex;flex-direction:column;gap:0.5rem">
+          <div class="bl" style="animation-delay:0s">> INITIALIZING OPERATOR_OS...</div>
+          <div class="bl" style="animation-delay:.5s">> KERNEL_CHECK: OK</div>
+          <div class="bl" style="animation-delay:1s">> LOADING LOADOUT: REACT_JS / TypeScript / TAILWIND_CSS</div>
+          <div class="bl" style="animation-delay:1.5s">> DECRYPTING INTEL...</div>
+          <div class="bl" style="animation-delay:2s;color:#ffae00">> SYSTEM_READY // ACCESS_GRANTED</div>
+        </div>
+        <div style="animation:blink-cursor .8s step-end infinite;display:inline-block;width:0.5rem;height:1.25rem;background:#00ffaa;vertical-align:middle;margin-left:0.25rem;margin-top:0.5rem"></div>
+      </div>
+      <style>
+        .bl{color:#00ffaa;font-size:clamp(0.75rem,2vw,1rem);letter-spacing:0.15em;opacity:0;animation:fade-in .3s ease forwards}
+        @keyframes fade-in{to{opacity:1}}
+        @keyframes blink-cursor{50%{opacity:0}}
+      </style>
+    </div>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

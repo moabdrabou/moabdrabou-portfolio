@@ -1,8 +1,7 @@
-import React, { useState, useCallback, lazy, Suspense } from "react";
+import React, { useState, useCallback, useEffect, useRef, lazy, Suspense } from "react";
 import "./tactical.css";
 import { GithubIcon, LinkedinIcon, TwitterIcon } from "@/components/icons";
 import { Mail, Menu, X, Crosshair, Wrench, Shield, Radio } from "lucide-react";
-import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 import maLogo from "./assets/malogo.png";
 
 const Hero = lazy(() => import("./components/sections/Hero"));
@@ -47,15 +46,19 @@ const contactLinks = [
 
 const RedesignApp: React.FC = () => {
   const [isBooting, setIsBooting] = useState(true);
+  const [bootRemoved, setBootRemoved] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [signalStatus, setSignalStatus] = useState<"IDLE" | "TRANSMITTING" | "SENT">("IDLE");
   const [activeSection, setActiveSection] = useState<string>("");
+  const transmitBarRef = useRef<HTMLDivElement>(null);
 
   const handleBootComplete = useCallback(() => {
     setIsBooting(false);
+    // Remove boot component from DOM after fade-out transition
+    setTimeout(() => setBootRemoved(true), 900);
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isBooting) return;
     const sections = document.querySelectorAll("section[id]");
     const observer = new IntersectionObserver(
@@ -77,30 +80,32 @@ const RedesignApp: React.FC = () => {
   const handleSendSignal = () => {
     setSignalStatus("TRANSMITTING");
 
-    // Simulate transmission delay
+    // Animate the progress bar with CSS
+    if (transmitBarRef.current) {
+      transmitBarRef.current.style.width = "100%";
+    }
+
     setTimeout(() => {
       setSignalStatus("SENT");
       window.location.href = "mailto:moabdrabou@hotmail.com";
-
-      // Reset after some time
       setTimeout(() => setSignalStatus("IDLE"), 4000);
     }, 1200);
   };
 
   return (
-    <MotionConfig reducedMotion="user">
-      <Suspense fallback={null}>
-        <AnimatePresence>
-          {isBooting && <BootSequence key="boot" onComplete={handleBootComplete} />}
-        </AnimatePresence>
-      </Suspense>
+    <>
+      {!bootRemoved && (
+        <Suspense fallback={null}>
+          <BootSequence onComplete={handleBootComplete} />
+        </Suspense>
+      )}
 
-      <motion.div
-        initial={false}
-        animate={{ opacity: isBooting ? 0 : 1 }}
-        transition={{ duration: 0.8 }}
-        style={{ pointerEvents: isBooting ? 'none' : 'auto' }}
-        className="tactical-hud min-h-dvh text-[#00ffaa] relative"
+      <div
+        className="tactical-hud min-h-dvh text-[#00ffaa] relative transition-opacity duration-800"
+        style={{
+          opacity: isBooting ? 0 : 1,
+          pointerEvents: isBooting ? 'none' : 'auto',
+        }}
       >
         <Suspense fallback={null}>
           <Background />
@@ -132,7 +137,7 @@ const RedesignApp: React.FC = () => {
             className="flex items-center gap-4 hover:opacity-80 transition-opacity"
           >
             <div className="w-12 h-12 border-2 border-[#00ffaa] flex items-center justify-center transition-all duration-300 p-1 hover:shadow-[0_0_15px_rgba(0,255,170,0.5),inset_0_0_15px_rgba(0,255,170,0.1)] hover:border-[#00ffaa] hover:scale-105">
-              <img src={maLogo} alt="MA Logo" className="w-full h-full object-contain transition-all duration-300 hover:drop-shadow-[0_0_6px_rgba(0,255,170,0.8)]" style={{ filter: 'brightness(0) saturate(100%) invert(88%) sepia(33%) saturate(1057%) hue-rotate(99deg) brightness(101%) contrast(106%)' }} />
+              <img src={maLogo} alt="MA Logo" width={48} height={48} className="w-full h-full object-contain transition-all duration-300 hover:drop-shadow-[0_0_6px_rgba(0,255,170,0.8)]" style={{ filter: 'brightness(0) saturate(100%) invert(88%) sepia(33%) saturate(1057%) hue-rotate(99deg) brightness(101%) contrast(106%)' }} />
             </div>
             <div className="hidden lg:block">
               <span className="font-display text-lg tracking-[0.3em] uppercase leading-none">
@@ -207,131 +212,119 @@ const RedesignApp: React.FC = () => {
       </header>
 
       {/* Mobile Nav Overlay */}
-      <AnimatePresence>
-        {isMenuOpen && (
-          <motion.div
-            id="mobile-nav"
-            role="dialog"
-            aria-modal="true"
-            aria-label="Navigation menu"
-            initial={{ opacity: 0, y: "-100%" }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: "-100%" }}
-            transition={{
-              type: "tween",
-              duration: 0.4,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-            className="fixed inset-0 bg-[#050505] z-[100] flex flex-col"
-          >
-            {/* Tactical background elements */}
-            <div className="absolute inset-0 pointer-events-none opacity-[0.15] bg-[linear-gradient(rgba(0,255,170,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(0,255,170,0.1)_1px,transparent_1px)] bg-[length:40px_40px]" />
-            <div className="absolute top-0 right-0 w-96 h-96 bg-[#00ffaa]/10 blur-[120px] rounded-full pointer-events-none" />
+      {isMenuOpen && (
+        <div
+          id="mobile-nav"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Navigation menu"
+          className="fixed inset-0 bg-[#050505] z-[100] flex flex-col animate-[menu-slide-in_0.4s_cubic-bezier(0.22,1,0.36,1)_forwards]"
+        >
+          {/* Tactical background elements */}
+          <div className="absolute inset-0 pointer-events-none opacity-[0.15] bg-[linear-gradient(rgba(0,255,170,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(0,255,170,0.1)_1px,transparent_1px)] bg-[length:40px_40px]" />
+          <div className="absolute top-0 right-0 w-96 h-96 bg-[#00ffaa]/10 blur-[120px] rounded-full pointer-events-none" />
 
-            <div className="p-8 h-full flex flex-col relative z-[101]">
-              <div className="flex justify-between items-center mb-12">
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 border-2 border-[#00ffaa] flex items-center justify-center transition-all duration-300 p-1 hover:shadow-[0_0_15px_rgba(0,255,170,0.5),inset_0_0_15px_rgba(0,255,170,0.1)] hover:scale-105">
-                    <img src={maLogo} alt="MA Logo" className="w-full h-full object-contain transition-all duration-300 hover:drop-shadow-[0_0_6px_rgba(0,255,170,0.8)]" style={{ filter: 'brightness(0) saturate(100%) invert(88%) sepia(33%) saturate(1057%) hue-rotate(99deg) brightness(101%) contrast(106%)' }} />
-                  </div>
-                  <span className="text-[10px] tracking-[0.5em] font-bold uppercase text-[#00ffaa]">
-                    // MENU_ACCESSED
-                  </span>
+          <div className="p-8 h-full flex flex-col relative z-[101]">
+            <div className="flex justify-between items-center mb-12">
+              <div className="flex items-center gap-4">
+                <div className="w-10 h-10 border-2 border-[#00ffaa] flex items-center justify-center transition-all duration-300 p-1 hover:shadow-[0_0_15px_rgba(0,255,170,0.5),inset_0_0_15px_rgba(0,255,170,0.1)] hover:scale-105">
+                  <img src={maLogo} alt="MA Logo" width={40} height={40} className="w-full h-full object-contain transition-all duration-300 hover:drop-shadow-[0_0_6px_rgba(0,255,170,0.8)]" style={{ filter: 'brightness(0) saturate(100%) invert(88%) sepia(33%) saturate(1057%) hue-rotate(99deg) brightness(101%) contrast(106%)' }} />
                 </div>
-                <button
-                  onClick={toggleMenu}
-                  aria-label="Close navigation menu"
-                  className="p-3 border-2 border-[#00ffaa] bg-[#00ffaa]/10 hover:bg-[#00ffaa] hover:text-black transition-all"
-                >
-                  <X size={28} aria-hidden="true" />
-                </button>
+                <span className="text-[10px] tracking-[0.5em] font-bold uppercase text-[#00ffaa]">
+                  // MENU_ACCESSED
+                </span>
               </div>
+              <button
+                onClick={toggleMenu}
+                aria-label="Close navigation menu"
+                className="p-3 border-2 border-[#00ffaa] bg-[#00ffaa]/10 hover:bg-[#00ffaa] hover:text-black transition-all"
+              >
+                <X size={28} aria-hidden="true" />
+              </button>
+            </div>
 
-              <div className="flex-1 overflow-y-auto">
-                <nav className="flex flex-col gap-8 mb-16">
-                  <span className="text-[10px] tracking-[0.8em] text-[#ffae00] font-bold mb-4 uppercase">
-                    &gt; NAVIGATION_NODES
+            <div className="flex-1 overflow-y-auto">
+              <nav className="flex flex-col gap-8 mb-16">
+                <span className="text-[10px] tracking-[0.8em] text-[#ffae00] font-bold mb-4 uppercase">
+                  &gt; NAVIGATION_NODES
+                </span>
+                {navLinks.map((link, idx) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    className="font-display text-5xl sm:text-7xl tracking-widest hover:text-[#00ffaa] transition-all flex items-center gap-6 group animate-[fade-slide-in_0.3s_ease_forwards]"
+                    style={{ animationDelay: `${0.2 + idx * 0.1}s`, opacity: 0 }}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <span className="text-sm font-mono opacity-30 group-hover:opacity-100 group-hover:text-[#00ffaa]">
+                      0{idx + 1}
+                    </span>
+                    {link.label.replace("// ", "")}
+                  </a>
+                ))}
+              </nav>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 mt-auto pt-12 border-t border-[#00ffaa]/10">
+                <div className="flex flex-col gap-6">
+                  <span className="text-[10px] tracking-[0.8em] text-[#ffae00] font-bold uppercase">
+                    &gt; COMM_CHANNELS
                   </span>
-                  {navLinks.map((link, idx) => (
-                    <motion.a
-                      key={link.href}
-                      href={link.href}
-                      initial={{ opacity: 0, x: -30 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.2 + idx * 0.1 }}
-                      className="font-display text-5xl sm:text-7xl tracking-widest hover:text-[#00ffaa] transition-all flex items-center gap-6 group"
-                      onClick={() => setIsMenuOpen(false)}
+                  <div className="flex gap-8">
+                    <a
+                      href="https://github.com/moabdrabou"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="GitHub profile"
+                      className="hover:text-[#00ffaa] transition-colors hover:scale-110 flex items-center justify-center w-11 h-11"
                     >
-                      <span className="text-sm font-mono opacity-30 group-hover:opacity-100 group-hover:text-[#00ffaa]">
-                        0{idx + 1}
-                      </span>
-                      {link.label.replace("// ", "")}
-                    </motion.a>
-                  ))}
-                </nav>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 mt-auto pt-12 border-t border-[#00ffaa]/10">
-                  <div className="flex flex-col gap-6">
-                    <span className="text-[10px] tracking-[0.8em] text-[#ffae00] font-bold uppercase">
-                      &gt; COMM_CHANNELS
-                    </span>
-                    <div className="flex gap-8">
-                      <a
-                        href="https://github.com/moabdrabou"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="GitHub profile"
-                        className="hover:text-[#00ffaa] transition-colors hover:scale-110 flex items-center justify-center w-11 h-11"
-                      >
-                        <GithubIcon className="w-8 h-8" aria-hidden="true" />
-                      </a>
-                      <a
-                        href="https://www.linkedin.com/in/moabdrabou/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="LinkedIn profile"
-                        className="hover:text-[#00ffaa] transition-colors hover:scale-110 flex items-center justify-center w-11 h-11"
-                      >
-                        <LinkedinIcon className="w-8 h-8" aria-hidden="true" />
-                      </a>
-                      <a
-                        href="mailto:moabdrabou@hotmail.com"
-                        aria-label="Send email"
-                        className="hover:text-[#00ffaa] transition-colors hover:scale-110 flex items-center justify-center w-11 h-11"
-                      >
-                        <Mail className="w-8 h-8" aria-hidden="true" />
-                      </a>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-col gap-4">
-                    <span className="text-[10px] tracking-[0.8em] text-[#ffae00] font-bold uppercase">
-                      &gt; OPERATOR_STATUS
-                    </span>
-                    <div className="font-mono text-xs opacity-70 leading-loose uppercase bg-[#00ffaa]/5 p-4 border-l-2 border-[#00ffaa]/30">
-                      [LOC] .... REMOTE_OPERATIONAL
-                      <br />
-                      [AVA] .... READY_FOR_DEPLOYMENT
-                      <br />
-                      [LVL] .... ELITE_DEVELOPER
-                    </div>
+                      <GithubIcon className="w-8 h-8" aria-hidden="true" />
+                    </a>
+                    <a
+                      href="https://www.linkedin.com/in/moabdrabou/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="LinkedIn profile"
+                      className="hover:text-[#00ffaa] transition-colors hover:scale-110 flex items-center justify-center w-11 h-11"
+                    >
+                      <LinkedinIcon className="w-8 h-8" aria-hidden="true" />
+                    </a>
+                    <a
+                      href="mailto:moabdrabou@hotmail.com"
+                      aria-label="Send email"
+                      className="hover:text-[#00ffaa] transition-colors hover:scale-110 flex items-center justify-center w-11 h-11"
+                    >
+                      <Mail className="w-8 h-8" aria-hidden="true" />
+                    </a>
                   </div>
                 </div>
-              </div>
 
-              {/* Decorative HUD Elements */}
-              <div className="mt-8 flex justify-between items-center opacity-30">
-                <div className="text-[10px] tracking-[0.3em] font-mono">
-                  HUD_VER_4.2.0 // BYPASS_PROTOCOL_ACTIVE
-                </div>
-                <div className="text-[10px] tracking-[0.3em] font-mono">
-                  [REDACTED]
+                <div className="flex flex-col gap-4">
+                  <span className="text-[10px] tracking-[0.8em] text-[#ffae00] font-bold uppercase">
+                    &gt; OPERATOR_STATUS
+                  </span>
+                  <div className="font-mono text-xs opacity-70 leading-loose uppercase bg-[#00ffaa]/5 p-4 border-l-2 border-[#00ffaa]/30">
+                    [LOC] .... REMOTE_OPERATIONAL
+                    <br />
+                    [AVA] .... READY_FOR_DEPLOYMENT
+                    <br />
+                    [LVL] .... ELITE_DEVELOPER
+                  </div>
                 </div>
               </div>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+
+            {/* Decorative HUD Elements */}
+            <div className="mt-8 flex justify-between items-center opacity-30">
+              <div className="text-[10px] tracking-[0.3em] font-mono">
+                HUD_VER_4.2.0 // BYPASS_PROTOCOL_ACTIVE
+              </div>
+              <div className="text-[10px] tracking-[0.3em] font-mono">
+                [REDACTED]
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       <main id="main-content" className="pt-32 px-6 max-w-7xl mx-auto">
         <Suspense fallback={null}>
@@ -449,11 +442,10 @@ const RedesignApp: React.FC = () => {
 
               {/* Progress bar for transmitting state */}
               {signalStatus === "TRANSMITTING" ? (
-                <motion.div
-                  className="absolute bottom-0 left-0 h-1 bg-black/40"
-                  initial={{ width: 0 }}
-                  animate={{ width: "100%" }}
-                  transition={{ duration: 1.5, ease: "linear" }}
+                <div
+                  ref={transmitBarRef}
+                  className="absolute bottom-0 left-0 h-1 bg-black/40 transition-[width] duration-[1500ms] ease-linear"
+                  style={{ width: 0 }}
                 />
               ) : null}
             </button>
@@ -465,8 +457,8 @@ const RedesignApp: React.FC = () => {
         &copy; {new Date().getFullYear()} // MOHAMMED ABDRABOU // END OF FILE //
         SECURED ENCRYPTION
       </footer>
-      </motion.div>
-    </MotionConfig>
+      </div>
+    </>
   );
 };
 

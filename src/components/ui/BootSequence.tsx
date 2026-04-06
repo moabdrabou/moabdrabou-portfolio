@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef, useMemo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 
 const BOOT_LOGS = [
   "> INITIALIZING OPERATOR_OS...",
@@ -36,15 +35,9 @@ const BootSequence: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
   const visibleLogs = BOOT_LOGS.slice(0, currentIndex);
 
   return (
-    <motion.div
-      initial={{ opacity: 1 }}
-      animate={{
-        opacity: done ? 0 : 1,
-        scale: done ? 1.1 : 1,
-        filter: done ? "blur(20px)" : "blur(0px)",
-      }}
-      transition={{ duration: 0.8, ease: "circOut" }}
-      className="fixed inset-0 z-[1000] bg-black flex flex-col items-center justify-center p-6 font-mono"
+    <div
+      className={`fixed inset-0 z-[1000] bg-black flex flex-col items-center justify-center p-6 font-mono transition-all duration-800 ${done ? "opacity-0 scale-110 blur-[20px]" : "opacity-100 scale-100 blur-0"}`}
+      style={{ transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)" }}
     >
       {/* Background Grid & Scanline */}
       <div className="absolute inset-0 pointer-events-none opacity-20 bg-[linear-gradient(rgba(0,255,170,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(0,255,170,0.1)_1px,transparent_1px)] bg-[length:30px_30px]" />
@@ -53,21 +46,17 @@ const BootSequence: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
       <div className="w-full max-w-2xl">
         <div className="space-y-2">
           {visibleLogs.map((log, i) => (
-            <motion.div
+            <div
               key={i}
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              className={`text-sm md:text-base tracking-widest ${
+              className={`text-sm md:text-base tracking-widest animate-[fade-slide-in_0.3s_ease_forwards] ${
                 log.includes("READY") ? "text-[#ffae00]" : "text-[#00ffaa]"
               }`}
             >
               {log}
-            </motion.div>
+            </div>
           ))}
-          <motion.div
-            animate={{ opacity: [1, 0] }}
-            transition={{ repeat: Infinity, duration: 0.8 }}
-            className="inline-block w-2 h-5 bg-[#00ffaa] align-middle ml-1"
+          <div
+            className="inline-block w-2 h-5 bg-[#00ffaa] align-middle ml-1 animate-[blink-cursor_0.8s_step-end_infinite]"
           />
         </div>
 
@@ -84,7 +73,7 @@ const BootSequence: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
