@@ -51,11 +51,24 @@ const RedesignApp: React.FC = () => {
   const [signalStatus, setSignalStatus] = useState<"IDLE" | "TRANSMITTING" | "SENT">("IDLE");
   const [activeSection, setActiveSection] = useState<string>("");
   const transmitBarRef = useRef<HTMLDivElement>(null);
+  const [loadHeavy, setLoadHeavy] = useState(false);
+
+  useEffect(() => {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const staticBoot = document.getElementById("boot-static");
+        if (staticBoot) staticBoot.remove();
+      });
+    });
+  }, []);
 
   const handleBootComplete = useCallback(() => {
     setIsBooting(false);
     // Remove boot component from DOM after fade-out transition
-    setTimeout(() => setBootRemoved(true), 900);
+    setTimeout(() => {
+      setBootRemoved(true);
+      setLoadHeavy(true);
+    }, 900);
   }, []);
 
   useEffect(() => {
@@ -331,13 +344,17 @@ const RedesignApp: React.FC = () => {
           <Hero />
         </Suspense>
 
-        <Suspense fallback={null}>
-          <Missions />
-        </Suspense>
+        {loadHeavy && (
+          <Suspense fallback={null}>
+            <Missions />
+          </Suspense>
+        )}
 
-        <Suspense fallback={null}>
-          <Loadout />
-        </Suspense>
+        {loadHeavy && (
+          <Suspense fallback={null}>
+            <Loadout />
+          </Suspense>
+        )}
 
         {/* Tactical Intel Section (About) */}
         <section id="intel" className="py-24 border-t border-[#00ffaa]/10">
