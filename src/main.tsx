@@ -3,9 +3,13 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./globals.css";
 
-// Remove the static boot screen once React takes over
-const staticBoot = document.getElementById("boot-static");
-if (staticBoot) staticBoot.remove();
+// Delay removal of static boot screen so it registers as FCP before React paints
+requestAnimationFrame(() => {
+  requestAnimationFrame(() => {
+    const staticBoot = document.getElementById("boot-static");
+    if (staticBoot) staticBoot.remove();
+  });
+});
 
 // Load Google Fonts lazily — completely off the critical path
 const fontLink = document.createElement("link");

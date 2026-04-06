@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect, useRef, lazy, Suspense } from 
 import "./tactical.css";
 import { GithubIcon, LinkedinIcon, TwitterIcon } from "@/components/icons";
 import { Mail, Menu, X, Crosshair, Wrench, Shield, Radio } from "lucide-react";
-import maLogo from "./assets/malogo.png";
+import maLogo from "./assets/malogo.webp";
 
 const Hero = lazy(() => import("./components/sections/Hero"));
 const Missions = lazy(() => import("./components/sections/Missions"));
@@ -252,7 +252,7 @@ const RedesignApp: React.FC = () => {
                   <a
                     key={link.href}
                     href={link.href}
-                    className="font-display text-5xl sm:text-7xl tracking-widest hover:text-[#00ffaa] transition-all flex items-center gap-6 group animate-[fade-slide-in_0.3s_ease_forwards]"
+                    className="font-display text-3xl sm:text-5xl tracking-widest hover:text-[#00ffaa] transition-all flex items-center gap-6 group animate-[fade-slide-in_0.3s_ease_forwards]"
                     style={{ animationDelay: `${0.2 + idx * 0.1}s`, opacity: 0 }}
                     onClick={() => setIsMenuOpen(false)}
                   >
@@ -326,7 +326,7 @@ const RedesignApp: React.FC = () => {
         </div>
       )}
 
-      <main id="main-content" className="pt-32 px-6 max-w-7xl mx-auto">
+      <main id="main-content" className="pt-24 sm:pt-32 px-4 sm:px-6 max-w-7xl mx-auto">
         <Suspense fallback={null}>
           <Hero />
         </Suspense>
@@ -346,7 +346,7 @@ const RedesignApp: React.FC = () => {
               <span className="text-[10px] tracking-[0.5em] text-[#ffae00] mb-4 block font-bold">
                 Bio-Data
               </span>
-              <h2 className="font-display text-2xl md:text-5xl mb-8 tracking-wider md:tracking-widest">
+              <h2 className="font-display text-xl md:text-3xl mb-8 tracking-wider md:tracking-widest">
                 &gt;&gt;&gt; MISSION BRIEFING
               </h2>
               <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -388,7 +388,7 @@ const RedesignApp: React.FC = () => {
         {/* Contact Footer */}
         <section id="comms" className="py-24 border-t border-[#00ffaa]/10">
           <div className="text-center max-w-2xl mx-auto px-4">
-            <h2 className="font-display text-4xl md:text-5xl mb-4 tracking-widest uppercase">
+            <h2 className="font-display text-2xl md:text-3xl mb-4 tracking-widest uppercase">
               Establish Comms
             </h2>
             <p className="font-mono text-[10px] md:text-sm opacity-60 mb-12 uppercase tracking-tighter md:tracking-normal">

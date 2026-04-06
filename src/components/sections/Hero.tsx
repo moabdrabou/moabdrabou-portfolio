@@ -22,7 +22,7 @@ const Hero: React.FC = () => {
               IDENTIFIED OPERATOR: ALPHA-01
             </span>
             <h1
-              className="text-4xl sm:text-6xl md:text-8xl tracking-widest text-[#00ffaa] mb-6 filter drop-shadow-[0_0_10px_rgba(0,255,170,0.5)] uppercase break-words"
+              className="text-3xl sm:text-5xl md:text-6xl tracking-widest text-[#00ffaa] mb-6 filter drop-shadow-[0_0_10px_rgba(0,255,170,0.5)] uppercase break-words"
               style={{ fontFamily: "'Black Ops One', cursive" }}
             >
               Mohammed Abdrabou

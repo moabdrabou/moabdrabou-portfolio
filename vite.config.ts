@@ -2,55 +2,75 @@ import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
 
-// Move all Vite-injected scripts, modulepreloads, and stylesheets from <head>
-// to end of <body>, so the browser paints the inline boot screen immediately
-// without waiting for any network resource discovery in the <head>.
-function deferAssetsPlugin(): Plugin {
+// Inline CSS into HTML and move JS to end of body.
+// Uses generateBundle hook so CSS content is available from the bundle.
+function inlineCssAndDeferJsPlugin(): Plugin {
   return {
-    name: "defer-assets",
+    name: "inline-css-defer-js",
     enforce: "post",
-    transformIndexHtml(html) {
-      // Collect Vite-injected tags from <head>
+    generateBundle(_, bundle) {
+      // Find the HTML asset
+      const htmlAsset = Object.values(bundle).find(
+        (a) => a.type === "asset" && a.fileName === "index.html"
+      );
+      if (!htmlAsset || htmlAsset.type !== "asset") return;
+
+      let html = typeof htmlAsset.source === "string"
+        ? htmlAsset.source
+        : new TextDecoder().decode(htmlAsset.source);
+
+      // Find all CSS assets in the bundle
+      const cssAssets = Object.values(bundle).filter(
+        (a) => a.type === "asset" && a.fileName.endsWith(".css")
+      );
+
+      // Remove Vite-injected tags from <head>
       const scriptRe = /<script type="module"[^>]*src="\/assets\/[^>]*><\/script>\n?\s*/g;
       const modulepreloadRe = /<link rel="modulepreload"[^>]*>\n?\s*/g;
-      const cssRe = /<link rel="stylesheet"[^>]*href="\/assets\/[^>]*>\n?\s*/g;
+      const cssLinkRe = /<link rel="stylesheet"[^>]*href="\/assets\/[^>]*>\n?\s*/g;
 
       const scripts = html.match(scriptRe) || [];
       const modulepreloads = html.match(modulepreloadRe) || [];
-      const cssLinks = html.match(cssRe) || [];
+      const cssLinks = html.match(cssLinkRe) || [];
 
-      // Remove them from <head>
-      let result = html;
       for (const tag of [...scripts, ...modulepreloads, ...cssLinks]) {
-        result = result.replace(tag, "");
+        html = html.replace(tag, "");
       }
 
-      // Build deferred block: CSS as async, then scripts at end of body
-      const asyncCss = cssLinks
-        .map((link) => {
-          const href = link.match(/href="([^"]+)"/)?.[1] || "";
-          return `<link rel="stylesheet" href="${href}" media="print" onload="this.media='all'">\n    <noscript><link rel="stylesheet" href="${href}"></noscript>`;
-        })
-        .join("\n    ");
+      // Inline CSS content directly into <head>
+      let inlinedStyle = "";
+      for (const css of cssAssets) {
+        const content = typeof css.source === "string"
+          ? css.source
+          : new TextDecoder().decode(css.source);
+        inlinedStyle += `<style>${content}</style>\n`;
+      }
 
-      const deferredTags = [
-        asyncCss,
+      // Deferred JS at end of body
+      const deferredJs = [
         ...modulepreloads.map((t) => t.trim()),
         ...scripts.map((t) => t.trim()),
       ]
         .filter(Boolean)
         .join("\n    ");
 
-      // Insert before </body>
-      result = result.replace("</body>", `    ${deferredTags}\n  </body>`);
+      html = html.replace("</head>", `${inlinedStyle}</head>`);
+      html = html.replace("</body>", `    ${deferredJs}\n  </body>`);
 
-      return result;
+      htmlAsset.source = html;
+
+      // Remove CSS files from bundle since they're now inlined
+      for (const [key, asset] of Object.entries(bundle)) {
+        if (asset.type === "asset" && asset.fileName.endsWith(".css")) {
+          delete bundle[key];
+        }
+      }
     },
   };
 }
 
 export default defineConfig({
-  plugins: [react(), deferAssetsPlugin()],
+  plugins: [react(), inlineCssAndDeferJsPlugin()],
   build: {
     outDir: "./Live",
     rollupOptions: {
