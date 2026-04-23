@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect, useRef, lazy, Suspense } from "react";
 import "./tactical.css";
 import { GithubIcon, LinkedinIcon, TwitterIcon } from "@/components/icons";
-import { Mail, Menu, X, Crosshair, Wrench, Shield, Radio } from "lucide-react";
+import { Mail, Menu, X, Crosshair, Wrench, Shield, Radio, Coffee } from "lucide-react";
 import maLogo from "./assets/malogo.webp";
 
 const Hero = lazy(() => import("./components/sections/Hero"));
@@ -466,6 +466,7 @@ const RedesignApp: React.FC = () => {
                 />
               ) : null}
             </button>
+
           </div>
         </section>
       </main>
@@ -474,6 +475,25 @@ const RedesignApp: React.FC = () => {
         &copy; {new Date().getFullYear()} // MOHAMMED ABDRABOU // END OF FILE //
         SECURED ENCRYPTION
       </footer>
+
+      {/* Floating Buy Me a Coffee */}
+      <a
+        href="https://buymeacoffee.com/moabdrabou"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Buy me a coffee — support the operator"
+        className="fixed bottom-6 left-6 z-[90] flex items-center gap-2 px-4 py-3 border border-[#ffae00]/70 bg-black/85 text-[#ffae00] font-display text-xs tracking-[0.25em] uppercase backdrop-blur-md hover:bg-[#ffae00] hover:text-black hover:scale-105 transition-all duration-300 group"
+        style={{ boxShadow: '0 0 18px rgba(255,174,0,0.18), 0 0 4px rgba(255,174,0,0.10)' }}
+      >
+        <span className="relative flex items-center gap-2 px-1 py-0.5">
+          <span className="absolute top-[-4px] left-[-4px] w-2 h-2 border-t-2 border-l-2 border-[#ffae00]" />
+          <span className="absolute top-[-4px] right-[-4px] w-2 h-2 border-t-2 border-r-2 border-[#ffae00]" />
+          <span className="absolute bottom-[-4px] left-[-4px] w-2 h-2 border-b-2 border-l-2 border-[#ffae00]" />
+          <span className="absolute bottom-[-4px] right-[-4px] w-2 h-2 border-b-2 border-r-2 border-[#ffae00]" />
+          <Coffee className="w-4 h-4 shrink-0 group-hover:scale-110 transition-transform duration-300" aria-hidden="true" />
+          <span className="hidden sm:inline">FUEL_THE_OPS</span>
+        </span>
+      </a>
       </div>
     </>
   );
