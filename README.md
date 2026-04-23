@@ -18,6 +18,7 @@ A tactical/military-themed personal portfolio built with React, TypeScript, and 
 - **Loadout** — Skills breakdown with animated mastery-level progress bars
 - **Intel** — Bio and mission briefing with architecture logs
 - **Comms** — Contact section with signal transmission animation and social links
+- **Buy Me a Coffee** — Persistent floating button (bottom-left) linking to [buymeacoffee.com/moabdrabou](https://buymeacoffee.com/moabdrabou)
 - **Aurora Background** — Layered animated gradient background effect
 - Custom CRT scanlines, glitch effects, and flicker animations throughout
 
